@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -19,7 +21,26 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    /* 起動時画面遷移処理 ----------------------------------------------------------------------------------*/
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if FIRAuth.auth()?.currentUser == nil {
+            // ログインしていなければログインの画面を表示する
+            DispatchQueue.main.async {
+                let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+                self.present(loginViewController!, animated: true, completion: nil)
+            }
+        } else {
+            // ログインしていればMapViewControllerへ
+            DispatchQueue.main.async {
+                let mapViewController = self.storyboard?.instantiateViewController(withIdentifier: "Map")
+                self.present(mapViewController!, animated: true, completion: nil)
+            }
+        }
+    }
+    /* 起動時画面遷移処理 ----------------------------------------------------------------------------------*/
 
 }
 
