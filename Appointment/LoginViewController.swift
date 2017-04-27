@@ -8,15 +8,15 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
-    
+    // 各TextFieldのアウトレット接続
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var displayNameTextField: UITextField!
+    
+    let uuid = NSUUID().uuidString
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    /* ログイン処理 ------------------------------------------------------------------------------------*/
     @IBAction func loginButton(_ sender: Any) {
         if let address = mailAddressTextField.text, let password = passwordTextField.text {
             // アドレスとパスワード名のいずれかでも入力されていないときは何もしない
@@ -54,13 +55,14 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+    /* ログイン処理 end---------------------------------------------------------------------------------*/
 
-    @IBAction func createAccountButton(_ sender: Any) {
-        if let address = mailAddressTextField.text, let password = passwordTextField.text, let displayName = displayNameTextField.text {
+    /* アカウント作成処理 -------------------------------------------------------------------------------*/
+    @IBAction func createAccountButton(_ sender: UIButton) {
+        if let address = mailAddressTextField.text, let password = passwordTextField.text {
             
             // アドレスとパスワードと表示名のいずれかでも入力されていない時は何もしない
-            if address.characters.isEmpty || password.characters.isEmpty || displayName.characters.isEmpty {
+            if address.characters.isEmpty || password.characters.isEmpty {
                 print("DEBUG_PRINT: 何かが空文字です。")
                 SVProgressHUD.showError(withStatus: "必要項目を入力して下さい")
                 return
@@ -75,28 +77,9 @@ class LoginViewController: UIViewController {
                     return
                 }
                 print("DEBUG_PRINT: ユーザー作成に成功しました。")
-                
-                // 表示名を設定する
-                let user = FIRAuth.auth()?.currentUser
-                if let user = user {
-                    let changeRequest = user.profileChangeRequest()
-                    changeRequest.displayName = displayName
-                    changeRequest.commitChanges { error in
-                        if let error = error {
-                            SVProgressHUD.showError(withStatus: "ユーザー作成時にエラーが発生しました")
-                            print("DEBUG_PRINT: " + error.localizedDescription)
-                        }
-                        print("DEBUG_PRINT: [userName = \(user.displayName)]の設定に成功しました。")
-                        
-                        // 画面を閉じてViewControllerに戻る
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                } else {
-                    print("DEBUG_PRINT: userNameの設定に失敗しました。")
-                }
             }
         }
     }
-
+    /* アカウント作成処理 end----------------------------------------------------------------------------*/
 
 }

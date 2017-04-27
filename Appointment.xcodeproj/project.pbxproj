@@ -15,9 +15,9 @@
 		D82326361EAEEEB5008B7615 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D82326341EAEEEB5008B7615 /* LaunchScreen.storyboard */; };
 		D823263E1EAEEF09008B7615 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823263D1EAEEF08008B7615 /* LoginViewController.swift */; };
 		D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823263F1EAEEF2D008B7615 /* MapViewController.swift */; };
-		D82326421EAF0E76008B7615 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D82326411EAF0E76008B7615 /* GoogleService-Info.plist */; };
 		D82326441EAF116E008B7615 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82326431EAF116E008B7615 /* MapKit.framework */; };
 		D8335F591EAF3E710042D1DF /* AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */; };
+		D86867FD1EB085E6006FFBA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D86867FC1EB085E6006FFBA2 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +32,9 @@
 		D82326371EAEEEB5008B7615 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D823263D1EAEEF08008B7615 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D823263F1EAEEF2D008B7615 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		D82326411EAF0E76008B7615 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D82326431EAF116E008B7615 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentViewController.swift; sourceTree = "<group>"; };
+		D86867FC1EB085E6006FFBA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appointment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Appointment/Pods-Appointment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +99,7 @@
 				D82326321EAEEEB5008B7615 /* Assets.xcassets */,
 				D82326341EAEEEB5008B7615 /* LaunchScreen.storyboard */,
 				D82326371EAEEEB5008B7615 /* Info.plist */,
-				D82326411EAF0E76008B7615 /* GoogleService-Info.plist */,
+				D86867FC1EB085E6006FFBA2 /* GoogleService-Info.plist */,
 			);
 			path = Appointment;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D82326361EAEEEB5008B7615 /* LaunchScreen.storyboard in Resources */,
-				D82326421EAF0E76008B7615 /* GoogleService-Info.plist in Resources */,
+				D86867FD1EB085E6006FFBA2 /* GoogleService-Info.plist in Resources */,
 				D82326331EAEEEB5008B7615 /* Assets.xcassets in Resources */,
 				D82326311EAEEEB5008B7615 /* Main.storyboard in Resources */,
 			);

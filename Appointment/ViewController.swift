@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 
 class ViewController: UIViewController {
 
@@ -27,7 +26,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if FIRAuth.auth()?.currentUser == nil {
-            // ログインしていなければログインの画面を表示する
+            // ログインしていなければLoginViewControllerへ
             DispatchQueue.main.async {
                 let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
                 self.present(loginViewController!, animated: true, completion: nil)
