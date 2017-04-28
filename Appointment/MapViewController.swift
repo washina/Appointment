@@ -62,72 +62,76 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // 今までの経路を削除
         mapView.removeOverlays(mapView.overlays)
         
-        
         // 初期値:東京駅
         var latitude: Double = 35.681298
-        let longitude: Double = 139.766247
+        var longitude: Double = 139.766247
         // 相手のuidから子要素があるか条件分岐
         let ref = FIRDatabase.database().reference().child("users")
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(self.uidTextField.text!){
                 print("DEBUG_PRINT: uid認証成功")
                 // 位置情報読み取り処理
-                //let test = ref.child(self.uidTextField.text!)
-                //let postData = PostData(snapshot: snapshot, myId: (FIRAuth.auth()?.currentUser?.uid)!)
-
+                ref.child(self.uidTextField.text!).observeSingleEvent(of: .value, with: {(snapshot) in
+                    if let snapshotDictionary = snapshot.value as? [String:AnyObject]{
+                        // データベース上の値を格納
+                        latitude = snapshotDictionary["latitude"] as! Double
+                        longitude = snapshotDictionary["longitude"] as! Double
+                        
+                        // 目的地の座標を指定
+                        self.destinationLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                        
+                        // 現在地と目的地のMKPlacemarkを生成
+                        let fromPlacemark = MKPlacemark(coordinate:self.userLocation, addressDictionary:nil)
+                        let toPlacemark   = MKPlacemark(coordinate:self.destinationLocation, addressDictionary:nil)
+                        
+                        // MKPlacemarkからMKMapItemを生成
+                        let fromItem = MKMapItem(placemark:fromPlacemark)
+                        let toItem   = MKMapItem(placemark:toPlacemark)
+                        
+                        // MKMapItemをセットしてMKDirectionsRequestを生成
+                        let request: MKDirectionsRequest = MKDirectionsRequest()
+                        
+                        request.source = fromItem
+                        request.destination = toItem
+                        // 単独の経路を検索
+                        request.requestsAlternateRoutes = false
+                        request.transportType = MKDirectionsTransportType.any
+                        
+                        let directions = MKDirections(request:request)
+                        directions.calculate{ (response, error) in
+                            
+                            if (error != nil || response!.routes.isEmpty) {
+                                return
+                            }
+                            let route: MKRoute = response!.routes[0] as MKRoute
+                            
+                            // 経路を描画
+                            self.mapView.add(route.polyline)
+                            
+                        }
+                        
+                        // ピンを生成
+                        let fromPin: MKPointAnnotation = MKPointAnnotation()
+                        let toPin: MKPointAnnotation = MKPointAnnotation()
+                        
+                        // 座標をセット
+                        fromPin.coordinate = self.userLocation
+                        toPin.coordinate = self.destinationLocation
+                        
+                        // titleをセット
+                        fromPin.title = "出発地点"
+                        toPin.title = "目的地"
+                        
+                        // mapViewに追加
+                        self.mapView.addAnnotation(fromPin)
+                        self.mapView.addAnnotation(toPin)
+                    }
+                })
+                
             }else{
-                print("DEBUG_PRINT: 要素がありません")
+                print("DEBUG_PRINT: uid認証失敗")
             }
         })
-        
-        
-        // TEST: 目的地の座標を指定（テストとして東京駅の座標を目的地に設定）
-        destinationLocation = CLLocationCoordinate2DMake(latitude, longitude)
-        
-        // 現在地と目的地のMKPlacemarkを生成
-        let fromPlacemark = MKPlacemark(coordinate:userLocation, addressDictionary:nil)
-        let toPlacemark   = MKPlacemark(coordinate:destinationLocation, addressDictionary:nil)
-        
-        // MKPlacemarkからMKMapItemを生成
-        let fromItem = MKMapItem(placemark:fromPlacemark)
-        let toItem   = MKMapItem(placemark:toPlacemark)
-        
-        // MKMapItemをセットしてMKDirectionsRequestを生成
-        let request: MKDirectionsRequest = MKDirectionsRequest()
-        
-        request.source = fromItem
-        request.destination = toItem
-        request.requestsAlternateRoutes = false // 単独の経路を検索
-        request.transportType = MKDirectionsTransportType.any
-        
-        let directions = MKDirections(request:request)
-        directions.calculate{ (response, error) in
-            
-            if (error != nil || response!.routes.isEmpty) {
-                return
-            }
-            let route: MKRoute = response!.routes[0] as MKRoute
-            
-            // 経路を描画
-            self.mapView.add(route.polyline)
-            
-        }
-        
-        // ピンを生成
-        let fromPin: MKPointAnnotation = MKPointAnnotation()
-        let toPin: MKPointAnnotation = MKPointAnnotation()
-        
-        // 座標をセット
-        fromPin.coordinate = userLocation
-        toPin.coordinate = destinationLocation
-        
-        // titleをセット
-        fromPin.title = "出発地点"
-        toPin.title = "目的地"
-        
-        // mapViewに追加
-        mapView.addAnnotation(fromPin)
-        mapView.addAnnotation(toPin)
         
     }
     

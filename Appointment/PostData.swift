@@ -20,9 +20,9 @@ class PostData: NSObject {
         
         let valueDictionary = snapshot.value as! [String: AnyObject]
         
-        self.latitude = valueDictionary["latitude"] as? Double
+        //self.latitude = valueDictionary["latitude"] as? Double
         
-        self.longitude = valueDictionary["longitude"] as? Double
+        //self.longitude = valueDictionary["longitude"] as? Double
         
     }
 }
