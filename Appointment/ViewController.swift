@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        print()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,16 +29,12 @@ class ViewController: UIViewController {
         
         if FIRAuth.auth()?.currentUser == nil {
             // ログインしていなければLoginViewControllerへ
-            DispatchQueue.main.async {
-                let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-                self.present(loginViewController!, animated: true, completion: nil)
-            }
+            let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+            self.present(loginViewController!, animated: true, completion: nil)
         } else {
             // ログインしていればMapViewControllerへ
-            DispatchQueue.main.async {
-                let mapViewController = self.storyboard?.instantiateViewController(withIdentifier: "Map")
-                self.present(mapViewController!, animated: true, completion: nil)
-            }
+            let mapViewController = self.storyboard?.instantiateViewController(withIdentifier: "Map")
+            self.present(mapViewController!, animated: true, completion: nil)
         }
     }
     /* 起動時画面遷移処理 ----------------------------------------------------------------------------------*/

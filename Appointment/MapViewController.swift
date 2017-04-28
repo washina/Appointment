@@ -9,12 +9,16 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
+import FirebaseDatabase
 import SVProgressHUD
+
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    // MapViewのアウトレット接続
+    // アウトレット接続
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var uidTextField: UITextField!
     
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
@@ -35,11 +39,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         locationManager.distanceFilter = 100.0                          // 更新頻度（100メートルずつに更新する）
         /* LocationManager関連の設定 end------------------------------------------------------------------------*/
 
-        
-        
-//        let uuid = NSUUID().uuidString
-//        print("uuid:\(uuid)")
-        
     }
     
     // AppointmentViewControllerへ画面遷移処理
@@ -49,6 +48,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // TEST
+    @IBAction func loginButton(_ sender: Any) {
+        let loginviewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
+        self.present(loginviewController!, animated: true, completion: nil)
+    }
+    
+    
+    // TEST
     @IBAction func menuButton(_ sender: Any) {
         
         // 今までのピンを削除
@@ -56,8 +62,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // 今までの経路を削除
         mapView.removeOverlays(mapView.overlays)
         
+        
+        // 初期値:東京駅
+        var latitude: Double = 35.681298
+        let longitude: Double = 139.766247
+        // 相手のuidから子要素があるか条件分岐
+        let ref = FIRDatabase.database().reference().child("users")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(self.uidTextField.text!){
+                print("DEBUG_PRINT: uid認証成功")
+                // 位置情報読み取り処理
+                //let test = ref.child(self.uidTextField.text!)
+                //let postData = PostData(snapshot: snapshot, myId: (FIRAuth.auth()?.currentUser?.uid)!)
+
+            }else{
+                print("DEBUG_PRINT: 要素がありません")
+            }
+        })
+        
+        
         // TEST: 目的地の座標を指定（テストとして東京駅の座標を目的地に設定）
-        destinationLocation = CLLocationCoordinate2DMake(35.681298, 139.766247)
+        destinationLocation = CLLocationCoordinate2DMake(latitude, longitude)
         
         // 現在地と目的地のMKPlacemarkを生成
         let fromPlacemark = MKPlacemark(coordinate:userLocation, addressDictionary:nil)
@@ -164,7 +189,17 @@ extension MapViewController: CLLocationManagerDelegate {
     /* 起動時、現在位置取得、マップ表示処理 ---------------------------------------------------------------------------------*/
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         for location in locations {
-            print("<DEBUG_PRINT>緯度:\(location.coordinate.latitude)経度:\(location.coordinate.longitude)取得時刻:\(location.timestamp.description)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+            print("<DEBUG_PRINT>緯度:\(location.coordinate.latitude)経度:\(location.coordinate.longitude)取得時刻:\(dateFormatter.string(from: location.timestamp))")
+            
+            // 辞書を作成してFirebaseに保存する
+            let postId = FIRAuth.auth()?.currentUser?.uid
+            let postRef = FIRDatabase.database().reference().child("users").child(postId!)
+            let postData = ["time": dateFormatter.string(from: location.timestamp),
+                            "latitude": location.coordinate.latitude,
+                            "longitude": location.coordinate.longitude] as [String : Any]
+            postRef.setValue(postData)
             
             // 現在地の緯度経度をそれぞれ代入
             let lat: CLLocationDegrees = location.coordinate.latitude

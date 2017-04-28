@@ -39,22 +39,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="heh-xg-Jnv">
-                                <rect key="frame" x="0.0" y="20" width="320" height="508"/>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMf-0V-DNE">
-                                <rect key="frame" x="0.0" y="533" width="160" height="30"/>
+                                <rect key="frame" x="0.0" y="528" width="106.5" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="s1D-FI-SGe"/>
+                                </constraints>
                                 <state key="normal" title="Appointment"/>
                                 <connections>
                                     <action selector="appointmentButton:" destination="w2b-aE-eKD" eventType="touchUpInside" id="DQX-UN-qqI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3yL-TE-B7a">
-                                <rect key="frame" x="160" y="528" width="160" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="luM-bS-53y"/>
-                                </constraints>
+                                <rect key="frame" x="106.5" y="528" width="107" height="40"/>
                                 <state key="normal" title="Test">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -62,25 +58,56 @@
                                     <action selector="menuButton:" destination="w2b-aE-eKD" eventType="touchUpInside" id="EdL-x2-koc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BX-eA-EWI">
+                                <rect key="frame" x="213.5" y="528" width="106.5" height="40"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginButton:" destination="w2b-aE-eKD" eventType="touchUpInside" id="2Tf-nv-Y7C"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザーuid入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TL0-Ew-GDp">
+                                <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="heh-xg-Jnv">
+                                <rect key="frame" x="0.0" y="50" width="320" height="478"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3yL-TE-B7a" firstAttribute="leading" secondItem="GMf-0V-DNE" secondAttribute="trailing" id="73X-Ia-zhh"/>
-                            <constraint firstItem="3yL-TE-B7a" firstAttribute="leading" secondItem="GMf-0V-DNE" secondAttribute="trailing" id="AP0-G5-PmU"/>
-                            <constraint firstAttribute="trailing" secondItem="3yL-TE-B7a" secondAttribute="trailing" id="DLU-nW-m7q"/>
-                            <constraint firstItem="3yL-TE-B7a" firstAttribute="centerY" secondItem="GMf-0V-DNE" secondAttribute="centerY" id="Hc1-ep-1DA"/>
-                            <constraint firstItem="3yL-TE-B7a" firstAttribute="top" secondItem="heh-xg-Jnv" secondAttribute="bottom" id="NKa-EO-C4E"/>
-                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="3yL-TE-B7a" secondAttribute="bottom" id="X9c-93-mFZ"/>
-                            <constraint firstItem="heh-xg-Jnv" firstAttribute="top" secondItem="hbs-C7-Bca" secondAttribute="bottom" id="fGb-w4-ZZn"/>
+                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="5BX-eA-EWI" secondAttribute="bottom" id="227-iF-s4p"/>
+                            <constraint firstItem="3yL-TE-B7a" firstAttribute="width" secondItem="GMf-0V-DNE" secondAttribute="width" id="3aQ-XC-nDW"/>
+                            <constraint firstAttribute="bottom" secondItem="3yL-TE-B7a" secondAttribute="bottom" id="4ha-nB-OcF"/>
+                            <constraint firstItem="3yL-TE-B7a" firstAttribute="centerY" secondItem="GMf-0V-DNE" secondAttribute="centerY" id="8I5-Td-Z65"/>
+                            <constraint firstItem="TL0-Ew-GDp" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="C4Z-Hs-Lty"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="top" secondItem="heh-xg-Jnv" secondAttribute="bottom" id="GHI-A0-Ze8"/>
+                            <constraint firstAttribute="trailing" secondItem="TL0-Ew-GDp" secondAttribute="trailing" id="OtJ-Q9-h0D"/>
+                            <constraint firstAttribute="trailing" secondItem="heh-xg-Jnv" secondAttribute="trailing" id="PFy-64-1QJ"/>
+                            <constraint firstItem="TL0-Ew-GDp" firstAttribute="top" secondItem="hbs-C7-Bca" secondAttribute="bottom" id="RMI-sy-ZlG"/>
+                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="5BX-eA-EWI" secondAttribute="bottom" id="Tq3-bt-shn"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="leading" secondItem="3yL-TE-B7a" secondAttribute="trailing" id="VTW-EZ-Bgk"/>
+                            <constraint firstItem="GMf-0V-DNE" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="YdG-ha-fJe"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="leading" secondItem="3yL-TE-B7a" secondAttribute="trailing" id="ZCX-Xc-Xj1"/>
+                            <constraint firstItem="heh-xg-Jnv" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="ZcD-ST-tmG"/>
+                            <constraint firstItem="3yL-TE-B7a" firstAttribute="leading" secondItem="GMf-0V-DNE" secondAttribute="trailing" id="aLj-sr-NvA"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="width" secondItem="GMf-0V-DNE" secondAttribute="width" id="cjk-mh-AVW"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="centerY" secondItem="GMf-0V-DNE" secondAttribute="centerY" id="h5t-6l-YSP"/>
+                            <constraint firstAttribute="trailing" secondItem="5BX-eA-EWI" secondAttribute="trailing" id="j0f-AR-Tdl"/>
+                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="GMf-0V-DNE" secondAttribute="bottom" id="kNP-zn-gT3"/>
+                            <constraint firstItem="3yL-TE-B7a" firstAttribute="leading" secondItem="GMf-0V-DNE" secondAttribute="trailing" id="le9-qs-Dkv"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="centerX" secondItem="6O2-ot-LqF" secondAttribute="centerX" id="mgR-yz-uRH"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="oJ8-j6-tfU"/>
-                            <constraint firstItem="GMf-0V-DNE" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="qcp-zI-zUR"/>
-                            <constraint firstItem="3yL-TE-B7a" firstAttribute="width" secondItem="GMf-0V-DNE" secondAttribute="width" id="wYO-Qe-kDM"/>
+                            <constraint firstItem="heh-xg-Jnv" firstAttribute="top" secondItem="TL0-Ew-GDp" secondAttribute="bottom" id="vGv-Fe-Xul"/>
+                            <constraint firstItem="5BX-eA-EWI" firstAttribute="leading" secondItem="3yL-TE-B7a" secondAttribute="trailing" id="wa5-AL-k7N"/>
                             <constraint firstAttribute="trailing" secondItem="heh-xg-Jnv" secondAttribute="trailing" id="zO5-ob-amG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="heh-xg-Jnv" id="Ev0-Ax-OTi"/>
+                        <outlet property="uidTextField" destination="TL0-Ew-GDp" id="zll-Mq-cBh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Lr-1n-CR1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -199,24 +226,30 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWb-85-SYO">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード（英数字6文字以上）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWb-85-SYO">
                                 <rect key="frame" x="36" y="90" width="248" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYL-FU-SD7">
-                                <rect key="frame" x="36" y="150" width="248" height="30"/>
-                                <state key="normal" title="ログイン"/>
-                                <connections>
-                                    <action selector="loginButton:" destination="0KZ-8m-RQW" eventType="touchUpInside" id="4H4-TY-H1T"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zd-2k-kYz">
-                                <rect key="frame" x="36" y="200" width="248" height="30"/>
+                                <rect key="frame" x="36" y="250" width="248" height="30"/>
                                 <state key="normal" title="アカウント作成"/>
                                 <connections>
                                     <action selector="createAccountButton:" destination="0KZ-8m-RQW" eventType="touchUpInside" id="By1-Ad-Jz9"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="マップ上に表示される名前" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MfU-Jk-mYe">
+                                <rect key="frame" x="36" y="140" width="248" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYL-FU-SD7">
+                                <rect key="frame" x="36" y="200" width="248" height="30"/>
+                                <state key="normal" title="ログイン"/>
+                                <connections>
+                                    <action selector="loginButton:" destination="0KZ-8m-RQW" eventType="touchUpInside" id="4H4-TY-H1T"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -224,16 +257,20 @@
                         <constraints>
                             <constraint firstItem="lWb-85-SYO" firstAttribute="top" secondItem="lTd-ZA-jMT" secondAttribute="bottom" constant="20" id="0Yl-Of-Xbp"/>
                             <constraint firstItem="lTd-ZA-jMT" firstAttribute="top" secondItem="mFP-Y5-fx0" secondAttribute="bottom" constant="20" id="1iv-uS-MxV"/>
+                            <constraint firstItem="MfU-Jk-mYe" firstAttribute="centerX" secondItem="O3c-tl-91Q" secondAttribute="centerX" id="9jg-tH-8So"/>
                             <constraint firstItem="lWb-85-SYO" firstAttribute="leading" secondItem="O3c-tl-91Q" secondAttribute="leadingMargin" constant="20" id="A5T-rz-ZJc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bYL-FU-SD7" secondAttribute="trailing" constant="20" id="AmC-uh-FVM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4zd-2k-kYz" secondAttribute="trailing" constant="20" id="EGs-Ha-5BZ"/>
                             <constraint firstItem="4zd-2k-kYz" firstAttribute="leading" secondItem="O3c-tl-91Q" secondAttribute="leadingMargin" constant="20" id="EUA-YE-nJW"/>
                             <constraint firstItem="lTd-ZA-jMT" firstAttribute="centerX" secondItem="O3c-tl-91Q" secondAttribute="centerX" id="GNO-VW-MBU"/>
+                            <constraint firstItem="bYL-FU-SD7" firstAttribute="top" secondItem="MfU-Jk-mYe" secondAttribute="bottom" constant="30" id="IUd-0o-9rm"/>
                             <constraint firstItem="4zd-2k-kYz" firstAttribute="top" secondItem="bYL-FU-SD7" secondAttribute="bottom" constant="20" id="MyL-I2-F10"/>
+                            <constraint firstItem="MfU-Jk-mYe" firstAttribute="leading" secondItem="O3c-tl-91Q" secondAttribute="leadingMargin" constant="20" id="NxR-QM-vTT"/>
                             <constraint firstItem="4zd-2k-kYz" firstAttribute="centerX" secondItem="O3c-tl-91Q" secondAttribute="centerX" id="Rui-ZV-X72"/>
-                            <constraint firstItem="bYL-FU-SD7" firstAttribute="top" secondItem="lWb-85-SYO" secondAttribute="bottom" constant="30" id="Slp-8R-2sn"/>
+                            <constraint firstItem="MfU-Jk-mYe" firstAttribute="top" secondItem="lWb-85-SYO" secondAttribute="bottom" constant="20" id="U6X-rk-w3Q"/>
                             <constraint firstItem="bYL-FU-SD7" firstAttribute="leading" secondItem="O3c-tl-91Q" secondAttribute="leadingMargin" constant="20" id="V3i-z6-JDb"/>
                             <constraint firstItem="bYL-FU-SD7" firstAttribute="centerX" secondItem="O3c-tl-91Q" secondAttribute="centerX" id="XIw-vo-Wvv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MfU-Jk-mYe" secondAttribute="trailing" constant="20" id="YxP-hz-U2g"/>
                             <constraint firstItem="lTd-ZA-jMT" firstAttribute="leading" secondItem="O3c-tl-91Q" secondAttribute="leadingMargin" constant="20" id="dTc-8y-P9i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lWb-85-SYO" secondAttribute="trailing" constant="20" id="euG-wW-0D2"/>
                             <constraint firstItem="lWb-85-SYO" firstAttribute="centerX" secondItem="O3c-tl-91Q" secondAttribute="centerX" id="sJs-tP-MrF"/>
@@ -241,6 +278,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="displayNameTextField" destination="MfU-Jk-mYe" id="bYr-z4-loA"/>
                         <outlet property="mailAddressTextField" destination="lTd-ZA-jMT" id="SAI-99-6OE"/>
                         <outlet property="passwordTextField" destination="lWb-85-SYO" id="RLG-Hy-BSR"/>
                     </connections>
