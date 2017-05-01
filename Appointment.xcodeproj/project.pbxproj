@@ -18,8 +18,6 @@
 		D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823263F1EAEEF2D008B7615 /* MapViewController.swift */; };
 		D82326441EAF116E008B7615 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82326431EAF116E008B7615 /* MapKit.framework */; };
 		D8335F591EAF3E710042D1DF /* AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */; };
-		D8650EEA1EB2CC2A008E709A /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650EE91EB2CC2A008E709A /* PostData.swift */; };
-		D8F26BB11EB30DD1001CB762 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F26BB01EB30DD1001CB762 /* Const.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +35,6 @@
 		D823263F1EAEEF2D008B7615 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D82326431EAF116E008B7615 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentViewController.swift; sourceTree = "<group>"; };
-		D8650EE91EB2CC2A008E709A /* PostData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
-		D8F26BB01EB30DD1001CB762 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appointment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Appointment/Pods-Appointment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,8 +96,6 @@
 				D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */,
 				D823263D1EAEEF08008B7615 /* LoginViewController.swift */,
 				D823263F1EAEEF2D008B7615 /* MapViewController.swift */,
-				D8F26BB01EB30DD1001CB762 /* Const.swift */,
-				D8650EE91EB2CC2A008E709A /* PostData.swift */,
 				D82326321EAEEEB5008B7615 /* Assets.xcassets */,
 				D82326341EAEEEB5008B7615 /* LaunchScreen.storyboard */,
 				D82326371EAEEEB5008B7615 /* Info.plist */,
@@ -236,12 +230,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D823263E1EAEEF09008B7615 /* LoginViewController.swift in Sources */,
-				D8650EEA1EB2CC2A008E709A /* PostData.swift in Sources */,
 				D823262E1EAEEEB5008B7615 /* ViewController.swift in Sources */,
 				D823262C1EAEEEB5008B7615 /* AppDelegate.swift in Sources */,
 				D8335F591EAF3E710042D1DF /* AppointmentViewController.swift in Sources */,
 				D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */,
-				D8F26BB11EB30DD1001CB762 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +359,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NWN6RK793R;
 				INFOPLIST_FILE = Appointment/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.yuta.iwashina.Appointment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -381,6 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NWN6RK793R;
 				INFOPLIST_FILE = Appointment/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.yuta.iwashina.Appointment;
 				PRODUCT_NAME = "$(TARGET_NAME)";

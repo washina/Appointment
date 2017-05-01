@@ -8,12 +8,12 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class AppointmentViewController: UIViewController {
     
     // アウトレット接続
     @IBOutlet weak var toMailAddressTextField: UITextField!
-    @IBOutlet weak var viewPasswordTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +28,24 @@ class AppointmentViewController: UIViewController {
         return true
     }
     
-    // ボタンを押す度にランダムな16桁の英数字を発行
-    @IBAction func randomPasswordButton(_ sender: Any) {
-        let randomPass = random(length: 16)
-        viewPasswordTextField.text = randomPass
-    }
-    
-    // ランダムな英数字を作るメソッド
-    func random(length: Int) -> String {
-        let alphabet = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let upperBound = UInt32(alphabet.characters.count)
-        return String((0..<length).map { _ -> Character in
-            return alphabet[alphabet.index(alphabet.startIndex, offsetBy: Int(arc4random_uniform(upperBound)))]
+    @IBAction func searchButton(_ sender: Any) {
+        // 相手のuidから子要素があるか条件分岐
+        let toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
+        FIRDatabase.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(toAddress){
+                print("DEBUG_PRINT: メールアドレス認証成功")
+                // 認証成功時にMapViewControllerにメールアドレスの情報を送り画面遷移
+                let controller = self.presentingViewController as? MapViewController
+                controller?.getAddress = toAddress
+                self.dismiss(animated: true, completion: {
+                    controller?.appointmentSearch()
+                })
+            } else {
+                SVProgressHUD.showError(withStatus: "メールアドレスが間違っています。")
+                return
+            }
         })
     }
-    
-    
-    @IBAction func sendRequestButton(_ sender: Any) {
-    }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
