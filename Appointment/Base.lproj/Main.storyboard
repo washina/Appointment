@@ -39,41 +39,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMf-0V-DNE">
-                                <rect key="frame" x="0.0" y="528" width="89" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="s1D-FI-SGe"/>
-                                </constraints>
-                                <state key="normal" title="Appointment"/>
-                                <connections>
-                                    <action selector="appointmentButton:" destination="w2b-aE-eKD" eventType="touchUpInside" id="DQX-UN-qqI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BX-eA-EWI">
-                                <rect key="frame" x="231" y="528" width="89" height="40"/>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <action selector="loginButton:" destination="w2b-aE-eKD" eventType="touchUpInside" id="2Tf-nv-Y7C"/>
-                                </connections>
-                            </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="heh-xg-Jnv">
-                                <rect key="frame" x="0.0" y="20" width="320" height="508"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="498"/>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </mapView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKn-HL-jfg">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="woy-pg-QOC"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem title="経路検索" image="pintopin" selectedImage="pintopin" id="mo3-sD-cWl"/>
+                                    <tabBarItem title="お気に入り" image="favorite" selectedImage="favorite" id="jBQ-z5-GxO"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="5BX-eA-EWI" secondAttribute="bottom" id="227-iF-s4p"/>
-                            <constraint firstItem="5BX-eA-EWI" firstAttribute="top" secondItem="heh-xg-Jnv" secondAttribute="bottom" id="GHI-A0-Ze8"/>
-                            <constraint firstItem="5BX-eA-EWI" firstAttribute="width" secondItem="GMf-0V-DNE" secondAttribute="width" id="M8k-12-0mo"/>
+                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="DKn-HL-jfg" secondAttribute="bottom" id="K7x-Ri-hQN"/>
                             <constraint firstAttribute="trailing" secondItem="heh-xg-Jnv" secondAttribute="trailing" id="PFy-64-1QJ"/>
-                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="5BX-eA-EWI" secondAttribute="bottom" id="Tq3-bt-shn"/>
-                            <constraint firstItem="GMf-0V-DNE" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="YdG-ha-fJe"/>
+                            <constraint firstItem="DKn-HL-jfg" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="PVi-Wd-sP9"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="top" secondItem="hbs-C7-Bca" secondAttribute="bottom" id="Z08-57-ZbA"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="ZcD-ST-tmG"/>
-                            <constraint firstItem="5BX-eA-EWI" firstAttribute="centerY" secondItem="GMf-0V-DNE" secondAttribute="centerY" id="h5t-6l-YSP"/>
-                            <constraint firstAttribute="trailing" secondItem="5BX-eA-EWI" secondAttribute="trailing" id="j0f-AR-Tdl"/>
-                            <constraint firstItem="aDY-E1-a8M" firstAttribute="top" secondItem="GMf-0V-DNE" secondAttribute="bottom" id="kNP-zn-gT3"/>
+                            <constraint firstItem="DKn-HL-jfg" firstAttribute="top" secondItem="heh-xg-Jnv" secondAttribute="bottom" id="cZx-oB-tDO"/>
+                            <constraint firstAttribute="trailing" secondItem="DKn-HL-jfg" secondAttribute="trailing" id="gEE-Qj-8jO"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="centerX" secondItem="6O2-ot-LqF" secondAttribute="centerX" id="mgR-yz-uRH"/>
                             <constraint firstItem="heh-xg-Jnv" firstAttribute="leading" secondItem="6O2-ot-LqF" secondAttribute="leading" id="oJ8-j6-tfU"/>
                             <constraint firstAttribute="trailing" secondItem="heh-xg-Jnv" secondAttribute="trailing" id="zO5-ob-amG"/>
@@ -81,11 +70,117 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="heh-xg-Jnv" id="Ev0-Ax-OTi"/>
+                        <outlet property="tabBar" destination="DKn-HL-jfg" id="XZw-YE-ry0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Lr-1n-CR1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.75" y="805.9859154929577"/>
+            <point key="canvasLocation" x="845.625" y="900"/>
+        </scene>
+        <!--Right Menu View Controller-->
+        <scene sceneID="CsL-Hf-Nnx">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qxc-47-STr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="Right" id="E7U-HK-FUy" customClass="RightMenuViewController" customModule="Appointment" customModuleProvider="target" sceneMemberID="viewController">
+                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="cZp-YS-OA7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qVI-08-rWp">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67L-ia-2S2">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="67L-ia-2S2" firstAttribute="leading" secondItem="qVI-08-rWp" secondAttribute="leading" id="4R8-zk-yWw"/>
+                                <constraint firstAttribute="trailing" secondItem="67L-ia-2S2" secondAttribute="trailing" id="7Hx-Qz-p8U"/>
+                                <constraint firstAttribute="bottom" secondItem="67L-ia-2S2" secondAttribute="bottom" id="NDo-kd-hgL"/>
+                                <constraint firstItem="67L-ia-2S2" firstAttribute="top" secondItem="qVI-08-rWp" secondAttribute="top" id="WkS-z8-bwE"/>
+                            </constraints>
+                        </view>
+                        <blurEffect style="light"/>
+                    </visualEffectView>
+                    <connections>
+                        <outlet property="tableView" destination="67L-ia-2S2" id="lE0-Lo-GyL"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1594" y="900"/>
+        </scene>
+        <!--How To View Controller-->
+        <scene sceneID="csQ-X1-5bE">
+            <objects>
+                <viewController storyboardIdentifier="HowTo" id="Qrc-nh-c3N" customClass="HowToViewController" customModule="Appointment" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zlq-ab-tq0"/>
+                        <viewControllerLayoutGuide type="bottom" id="LmE-Ai-ROC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="teD-zF-jil">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WGz-Xr-yXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2483" y="900"/>
+        </scene>
+        <!--Profile Setting View Controller-->
+        <scene sceneID="SmW-X5-Mlt">
+            <objects>
+                <viewController storyboardIdentifier="Plofile" id="QXn-Xj-OGz" customClass="ProfileSettingViewController" customModule="Appointment" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U6X-SN-DOX"/>
+                        <viewControllerLayoutGuide type="bottom" id="vng-g1-taw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MpK-N3-NvU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vrN-pY-XKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3396" y="900"/>
+        </scene>
+        <!--Favorite View Controller-->
+        <scene sceneID="mUm-e3-2Jd">
+            <objects>
+                <viewController storyboardIdentifier="Favorite" id="ICL-OS-66f" customClass="FavoriteViewController" customModule="Appointment" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GkC-Dh-zq2"/>
+                        <viewControllerLayoutGuide type="bottom" id="KT3-J4-jZ6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="t54-Xc-GBI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RAi-MO-sDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4258" y="900"/>
+        </scene>
+        <!--Slide View Controller-->
+        <scene sceneID="Q94-oM-KoR">
+            <objects>
+                <viewController storyboardIdentifier="Slide" id="dnq-sl-91B" customClass="SlideViewController" customModule="Appointment" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BuY-vW-mmP"/>
+                        <viewControllerLayoutGuide type="bottom" id="FfJ-Oe-KrM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mu4-we-nH2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OFl-EL-3YE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="34" y="900"/>
         </scene>
         <!--Appointment View Controller-->
         <scene sceneID="tcb-k3-QWW">
@@ -157,7 +252,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NfK-q4-4Ma" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="EqK-qh-JYh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1108" y="801"/>
+            <point key="canvasLocation" x="1539" y="138"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="hT4-5f-6JW">
@@ -239,4 +334,8 @@
             <point key="canvasLocation" x="847" y="139"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="favorite" width="40" height="40"/>
+        <image name="pintopin" width="40" height="40"/>
+    </resources>
 </document>

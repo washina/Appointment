@@ -18,6 +18,11 @@
 		D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823263F1EAEEF2D008B7615 /* MapViewController.swift */; };
 		D82326441EAF116E008B7615 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82326431EAF116E008B7615 /* MapKit.framework */; };
 		D8335F591EAF3E710042D1DF /* AppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */; };
+		D88C634E1EB845100041967C /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C634D1EB845100041967C /* SlideViewController.swift */; };
+		D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C634F1EB845A40041967C /* RightMenuViewController.swift */; };
+		D88C63521EB864410041967C /* HowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63511EB864400041967C /* HowToViewController.swift */; };
+		D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63531EB866850041967C /* ProfileSettingViewController.swift */; };
+		D88C63561EB866F80041967C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63551EB866F80041967C /* FavoriteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +40,11 @@
 		D823263F1EAEEF2D008B7615 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D82326431EAF116E008B7615 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentViewController.swift; sourceTree = "<group>"; };
+		D88C634D1EB845100041967C /* SlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
+		D88C634F1EB845A40041967C /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		D88C63511EB864400041967C /* HowToViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToViewController.swift; sourceTree = "<group>"; };
+		D88C63531EB866850041967C /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		D88C63551EB866F80041967C /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appointment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Appointment/Pods-Appointment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +103,11 @@
 				D823262B1EAEEEB5008B7615 /* AppDelegate.swift */,
 				D823262D1EAEEEB5008B7615 /* ViewController.swift */,
 				D823262F1EAEEEB5008B7615 /* Main.storyboard */,
+				D88C63551EB866F80041967C /* FavoriteViewController.swift */,
+				D88C63531EB866850041967C /* ProfileSettingViewController.swift */,
+				D88C63511EB864400041967C /* HowToViewController.swift */,
+				D88C634F1EB845A40041967C /* RightMenuViewController.swift */,
+				D88C634D1EB845100041967C /* SlideViewController.swift */,
 				D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */,
 				D823263D1EAEEF08008B7615 /* LoginViewController.swift */,
 				D823263F1EAEEF2D008B7615 /* MapViewController.swift */,
@@ -233,7 +248,12 @@
 				D823262E1EAEEEB5008B7615 /* ViewController.swift in Sources */,
 				D823262C1EAEEEB5008B7615 /* AppDelegate.swift in Sources */,
 				D8335F591EAF3E710042D1DF /* AppointmentViewController.swift in Sources */,
+				D88C63561EB866F80041967C /* FavoriteViewController.swift in Sources */,
+				D88C63521EB864410041967C /* HowToViewController.swift in Sources */,
+				D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */,
+				D88C634E1EB845100041967C /* SlideViewController.swift in Sources */,
 				D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */,
+				D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

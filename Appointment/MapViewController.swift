@@ -12,28 +12,46 @@ import CoreLocation
 import Firebase
 import FirebaseDatabase
 import SVProgressHUD
+import SlideMenuControllerSwift
 
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     // アウトレット接続
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var tabBar: UITabBar!
     
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
     var destinationLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
 
+    // アドレス受取
     var getAddress: String!
-//    override func viewDidAppear(_ animated: Bool) {
-//        let friendRef = FIRDatabase.database().reference().child("users").child(self.getAddress)
-//        friendRef.observe(.value) { (snap: FIRDataSnapshot) in
-//            SVProgressHUD.showError(withStatus: "相手の座標が変わりました。再度経路表示ボタンを押して下さい。")
-//        }
-//    }
+    
+    // rgb変換メソッド
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TabBarの背景色設定
+        tabBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
+        
+        /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
+        navigationController?.navigationBar.tintColor = UIColor.white
+        addRightBarButtonWithImage(UIImage(named: "menuIcon")!)
+        /* SlideViewControllerSwift設定 end-------------------------------------------------------------------*/
+        
         
         // MapViewのDelegateを設定
         mapView.delegate = self
@@ -54,11 +72,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.present(appointmentViewController!, animated: true, completion: nil)
     }
     
-    // TEST
-    @IBAction func loginButton(_ sender: Any) {
-        let loginviewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
-        self.present(loginviewController!, animated: true, completion: nil)
-    }
     
     // AppointViewControllerから帰ってきたときに実行されるメソッド
     func appointmentSearch() {

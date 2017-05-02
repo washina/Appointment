@@ -7,5 +7,5 @@ target 'Appointment' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Database'
 	pod 'SVProgressHUD'
-	pod 'DrawerController'
+	pod 'SlideMenuControllerSwift'
 end

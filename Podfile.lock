@@ -1,10 +1,4 @@
 PODS:
-  - DrawerController (3.1.0):
-    - DrawerController/Core (= 3.1.0)
-    - DrawerController/DrawerVisualStates (= 3.1.0)
-  - DrawerController/Core (3.1.0)
-  - DrawerController/DrawerVisualStates (3.1.0):
-    - DrawerController/Core
   - Firebase (3.17.0):
     - Firebase/Core (= 3.17.0)
   - Firebase/Auth (3.17.0):
@@ -41,17 +35,17 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
+  - SlideMenuControllerSwift (3.0.1)
   - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
-  - DrawerController
   - Firebase
   - Firebase/Auth
   - Firebase/Database
+  - SlideMenuControllerSwift
   - SVProgressHUD
 
 SPEC CHECKSUMS:
-  DrawerController: 89efc782dd732c0ec7891910a6bcca01433fad32
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -60,8 +54,9 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
+  SlideMenuControllerSwift: 9a163b16d54afab734add42858cba7ef7c307755
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: d55393e4ccca632e311bfbe950cbc5c912526098
+PODFILE CHECKSUM: 2304d4ab75f037587a962173e67334568fc03dda
 
 COCOAPODS: 1.2.0

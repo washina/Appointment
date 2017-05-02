@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SlideMenuControllerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

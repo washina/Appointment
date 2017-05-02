@@ -32,9 +32,9 @@ class ViewController: UIViewController {
             let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "Login")
             self.present(loginViewController!, animated: true, completion: nil)
         } else {
-            // ログインしていればMapViewControllerへ
-            let mapViewController = self.storyboard?.instantiateViewController(withIdentifier: "Map")
-            self.present(mapViewController!, animated: true, completion: nil)
+            // ログインしていればSlideViewController(MapViewController)へ
+            let slideViewController = self.storyboard?.instantiateViewController(withIdentifier: "Slide")
+            self.present(slideViewController!, animated: true, completion: nil)
         }
     }
     /* 起動時画面遷移処理 ----------------------------------------------------------------------------------*/
