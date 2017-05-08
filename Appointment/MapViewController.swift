@@ -12,14 +12,11 @@ import CoreLocation
 import Firebase
 import FirebaseDatabase
 import SVProgressHUD
-import SlideMenuControllerSwift
-
+//import SlideMenuControllerSwift
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    // アウトレット接続
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var tabBar: UITabBar!
     
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
@@ -42,15 +39,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TabBarの背景色設定
-        tabBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
-        
-        /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
-        navigationController?.navigationBar.tintColor = UIColor.white
-        addRightBarButtonWithImage(UIImage(named: "menuIcon")!)
-        /* SlideViewControllerSwift設定 end-------------------------------------------------------------------*/
+//        /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
+//        navigationController?.navigationBar.tintColor = UIColorFromRGB(rgbValue: 0xffffff)
+//        addRightBarButtonWithImage(UIImage(named: "menuIcon")!)
+//        /* SlideViewControllerSwift設定 end-------------------------------------------------------------------*/
         
         
         // MapViewのDelegateを設定
@@ -65,13 +59,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         /* LocationManager関連の設定 end------------------------------------------------------------------------*/
         
     }
-    
-    // AppointmentViewControllerへ画面遷移処理
-    @IBAction func appointmentButton(_ sender: Any) {
-        let appointmentViewController = self.storyboard?.instantiateViewController(withIdentifier: "Appointment")
-        self.present(appointmentViewController!, animated: true, completion: nil)
-    }
-    
     
     // AppointViewControllerから帰ってきたときに実行されるメソッド
     func appointmentSearch() {
@@ -150,9 +137,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         polylineRenderer.lineWidth = 3.0
         return polylineRenderer
     }
-    
-    // appointmentViewControllerからbackButtonで戻ってくる処理
-    @IBAction func backButton(_ segue:UIStoryboardSegue) {}
 
 
     override func didReceiveMemoryWarning() {

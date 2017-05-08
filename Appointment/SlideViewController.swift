@@ -10,14 +10,14 @@ import UIKit
 import SlideMenuControllerSwift
 
 class SlideViewController: SlideMenuController {
-    
+
     // スライド時の背景を生成
     override func awakeFromNib() {
-        let mapVC = storyboard?.instantiateViewController(withIdentifier: "Map") as! MapViewController
+        let mainVC = storyboard?.instantiateViewController(withIdentifier: "Map") as! MapViewController
         let rightVC = storyboard?.instantiateViewController(withIdentifier: "Right") as! RightMenuViewController
-        //UIViewControllerにはNavigationBarは無いためUINavigationControllerを生成しています。
-        let navigationController = UINavigationController(rootViewController: mapVC)
-        //ライブラリ特有のプロパティにセット
+        // UIViewControllerにはNavigationBarは無いためUINavigationControllerを生成
+        let navigationController = UINavigationController(rootViewController: mainVC)
+        // ライブラリ特有のプロパティにセット
         mainViewController = navigationController
         rightViewController = rightVC
         
@@ -34,16 +34,5 @@ class SlideViewController: SlideMenuController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
