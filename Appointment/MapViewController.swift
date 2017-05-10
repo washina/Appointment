@@ -12,18 +12,20 @@ import CoreLocation
 import Firebase
 import FirebaseDatabase
 import SVProgressHUD
-//import SlideMenuControllerSwift
+import SlideMenuControllerSwift
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var appointmentButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
     var destinationLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
 
-    // アドレス受取
+    // AppointmentViewontrollerで入力されたメールアドレスの受取
     var getAddress: String!
     
     // rgb変換メソッド
@@ -39,16 +41,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
-//        navigationController?.navigationBar.isTranslucent = false
-//        navigationController?.navigationBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)
-//        navigationController?.navigationBar.tintColor = UIColorFromRGB(rgbValue: 0xffffff)
-//        addRightBarButtonWithImage(UIImage(named: "menuIcon")!)
-//        /* SlideViewControllerSwift設定 end-------------------------------------------------------------------*/
-        
+        // 各ボタンの背景色設定
+        self.appointmentButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
+        self.favoriteButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
         
         // MapViewのDelegateを設定
         mapView.delegate = self
+        
+        // 現在地をマップ中心部に、現在地にカーソルを表示
+        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+        mapView.userTrackingMode = MKUserTrackingMode.followWithHeading
+        
+        /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
+        navigationController?.navigationBar.isTranslucent = false                                   // バーを半透明にするか
+        navigationController?.navigationBar.barTintColor = UIColorFromRGB(rgbValue: 0x40e0d0)       // バーの背景色
+        navigationController?.navigationBar.tintColor = UIColorFromRGB(rgbValue: 0xffffff)          // アイコンの色
+        addRightBarButtonWithImage(UIImage(named: "menuIcon")!)                                     // アイコンの画像
+        /* SlideViewControllerSwift設定 end-------------------------------------------------------------------*/
 
         /* LocationManager関連の設定 --------------------------------------------------------------------------*/
         locationManager = CLLocationManager()                           // インスタンスの生成
@@ -56,21 +65,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         locationManager.activityType = .fitness                         // 歩行者向けに設定
         locationManager.desiredAccuracy = kCLLocationAccuracyBest       // 最高精度に設定
         locationManager.distanceFilter = 100.0                          // 更新頻度（100メートルずつに更新する）
-        /* LocationManager関連の設定 end------------------------------------------------------------------------*/
+        /* LocationManager関連の設定 end-----------------------------------------------------------------------*/
         
     }
+
+    // 戻り処理
+    @IBAction func unwind(segue: UIStoryboardSegue) {}
     
-    // AppointViewControllerから帰ってきたときに実行されるメソッド
+
+    /* 経路検索、表示処理 ----------------------------------------------------------------------------------------*/
     func appointmentSearch() {
+        
         // 今までのピンを削除
         mapView.removeAnnotations(mapView.annotations)
         // 今までの経路を削除
         mapView.removeOverlays(mapView.overlays)
         
-        let friendRef = FIRDatabase.database().reference().child("users").child(getAddress)
-                
-        print("DEBUG_PRINT: メールアドレス認証成功")
         // 位置情報読み取り処理
+        let friendRef = FIRDatabase.database().reference().child("users").child(getAddress)
         friendRef.observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapshotDictionary = snapshot.value as? [String:AnyObject]{
                 // データベース上の値を格納
@@ -93,8 +105,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         
                 request.source = fromItem
                 request.destination = toItem
-                // 単独の経路を検索
-                request.requestsAlternateRoutes = false
+                request.requestsAlternateRoutes = false     // 単独の経路を検索
                 request.transportType = MKDirectionsTransportType.any
                         
                 let directions = MKDirections(request:request)
@@ -111,21 +122,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
                         
                 // ピンを生成
-                let fromPin: MKPointAnnotation = MKPointAnnotation()
                 let toPin: MKPointAnnotation = MKPointAnnotation()
                         
                 // 座標をセット
-                fromPin.coordinate = self.userLocation
                 toPin.coordinate = self.destinationLocation
                         
                 // titleをセット
-                fromPin.title = "出発地点"
                 toPin.title = "目的地"
                         
                 // mapViewに追加
-                self.mapView.addAnnotation(fromPin)
                 self.mapView.addAnnotation(toPin)
             }
+            
         })
         
     }
@@ -137,6 +145,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         polylineRenderer.lineWidth = 3.0
         return polylineRenderer
     }
+    /* 経路検索、表示処理 end-------------------------------------------------------------------------------------*/
 
 
     override func didReceiveMemoryWarning() {
@@ -203,7 +212,7 @@ extension MapViewController: CLLocationManagerDelegate {
                 "latitude": location.coordinate.latitude,
                 "longitude": location.coordinate.longitude
             ] as [String : Any]
-            postRef.setValue(postData)
+            postRef.updateChildValues(postData)
             
             // 現在地の緯度経度をそれぞれ代入
             let lat: CLLocationDegrees = location.coordinate.latitude
@@ -217,14 +226,10 @@ extension MapViewController: CLLocationManagerDelegate {
             // MapViewに反映
             mapView.setRegion(region, animated: true)
             
-            
-            /* 現在地にピンを表示 ----------------------------------------------------------------*/
-            // ピンを生成
-            let myPin: MKPointAnnotation = MKPointAnnotation()
-            // 座標を設定
-            myPin.coordinate = CLLocationCoordinate2DMake(lat, lon)
-            // MapViewにピンを追加
-            mapView.addAnnotation(myPin)
+            // 現在地が変わったら自動的に経路を再検索する
+            if(getAddress != nil) {
+                appointmentSearch()
+            }
             
         }
         

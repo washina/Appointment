@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
-class FavoriteViewController: UIViewController {
-
+class FavoriteViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var addFavoriteButton: UIButton!
+    
     // rgb変換メソッド
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         return UIColor(
@@ -22,9 +25,32 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ボタンの背景色設定
+        self.addFavoriteButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        var hostMailAddress = FIRAuth.auth()?.currentUser?.email
+        hostMailAddress = hostMailAddress?.replacingOccurrences(of: ".", with: ",")
+        let postRef = FIRDatabase.database().reference().child("users").child(hostMailAddress!).child("favorite")
+        postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            for var loopCount in  0 ..< snapshot.childrenCount {
+                
+            }
+        })
 
-        // 背景色変更
-        self.view.backgroundColor = UIColorFromRGB(rgbValue: 0xeeeeee)
+    }
+    
+    // セルの行数
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+    }
+    
+    //セルの内容を変更
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,13 +12,10 @@ import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
-    // 各TextFieldのアウトレット接続
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var displayNameTextField: UITextField!
-    
-    //let uuid = NSUUID().uuidString
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,7 +61,6 @@ class LoginViewController: UIViewController {
             
             // アドレスとパスワードと表示名のいずれかでも入力されていない時は何もしない
             if address.characters.isEmpty || password.characters.isEmpty || displayName.characters.isEmpty {
-                print("DEBUG_PRINT: 何かが空文字です。")
                 SVProgressHUD.showError(withStatus: "必要項目を入力して下さい")
                 return
             }
@@ -81,7 +77,6 @@ class LoginViewController: UIViewController {
                         SVProgressHUD.showError(withStatus: "ユーザー作成に失敗しました")
                         return
                     }
-                    print("DEBUG_PRINT: ユーザー作成に成功しました。")
                     
                     // 表示名を設定する
                     let user = FIRAuth.auth()?.currentUser

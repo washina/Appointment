@@ -8,5 +8,4 @@ target 'Appointment' do
 	pod 'Firebase/Database'
 	pod 'SVProgressHUD'
 	pod 'SlideMenuControllerSwift'
-	pod 'ESTabBarController'
 end

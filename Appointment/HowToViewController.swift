@@ -9,12 +9,33 @@
 import UIKit
 
 class HowToViewController: UIViewController {
+    
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
+    
+    // rgb変換メソッド
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // 各ボタンの背景色設定
+        self.backButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
+        self.menuButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
+    
     }
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
