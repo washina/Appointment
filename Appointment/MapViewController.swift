@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-import FirebaseDatabase
 import SVProgressHUD
 import SlideMenuControllerSwift
 
@@ -19,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var appointmentButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
-    
+        
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
     var destinationLocation: CLLocationCoordinate2D!
@@ -50,7 +49,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         // 現在地をマップ中心部に、現在地にカーソルを表示
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
-        mapView.userTrackingMode = MKUserTrackingMode.followWithHeading
+        mapView.userTrackingMode = MKUserTrackingMode.follow
         
         /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
         navigationController?.navigationBar.isTranslucent = false                                   // バーを半透明にするか
@@ -146,8 +145,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return polylineRenderer
     }
     /* 経路検索、表示処理 end-------------------------------------------------------------------------------------*/
-
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -196,10 +194,8 @@ extension MapViewController: CLLocationManagerDelegate {
             // 今までのピンを削除
             mapView.removeAnnotations(mapView.annotations)
             
-            // timestamp設定
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-            print("<DEBUG_PRINT>緯度:\(location.coordinate.latitude)経度:\(location.coordinate.longitude)取得時刻:\(dateFormatter.string(from: location.timestamp))")
+            // time
+            let time = NSDate.timeIntervalSinceReferenceDate
             
             // 辞書を作成してFirebaseに保存する
             var postId = FIRAuth.auth()?.currentUser?.email
@@ -208,7 +204,7 @@ extension MapViewController: CLLocationManagerDelegate {
             postId = postId?.replacingOccurrences(of: ".", with: ",")
             let postRef = FIRDatabase.database().reference().child("users").child(postId!)
             let postData = [
-                "time": dateFormatter.string(from: location.timestamp),
+                "time": String(time),
                 "latitude": location.coordinate.latitude,
                 "longitude": location.coordinate.longitude
             ] as [String : Any]

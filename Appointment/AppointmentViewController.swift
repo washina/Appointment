@@ -40,7 +40,6 @@ class AppointmentViewController: UIViewController {
         mapViewController.getAddress = toAddress
         FIRDatabase.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(toAddress){
-                print("DEBUG_PRINT: メールアドレス認証成功")
                 // 認証成功時にMapViewControllerにメールアドレスの情報を送り画面遷移
                 SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。")
                 mapViewController.appointmentSearch()

@@ -47,8 +47,12 @@ class AddFavoriteViewController: UIViewController {
                 "userName": userNameTextField.text!,
                 "userMailAddress": mailAddressTextField.text!
             ])
+            
+            // ローカルのデータベースに保存
             postRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 postRef.child("\(snapshot.childrenCount)").updateChildValues(postData)
+                let scoresRef = FIRDatabase.database().reference(withPath: "users")
+                scoresRef.keepSynced(true)
             })
             SVProgressHUD.showSuccess(withStatus: "お気に入りリストに追加されました。")
         } else {
