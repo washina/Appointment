@@ -79,7 +79,7 @@
                                 </constraints>
                                 <state key="normal" image="favorite"/>
                                 <connections>
-                                    <segue destination="ICL-OS-66f" kind="show" id="xEU-dU-FgG"/>
+                                    <segue destination="ICL-OS-66f" kind="show" identifier="" id="xEU-dU-FgG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Lr-1n-CR1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845.625" y="900"/>
+            <point key="canvasLocation" x="887" y="1738"/>
         </scene>
         <!--Right Menu View Controller-->
         <scene sceneID="CsL-Hf-Nnx">
@@ -224,9 +224,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qax-QK-IN3">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qax-QK-IN3">
                                 <rect key="frame" x="0.0" y="20" width="320" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="91" id="kqu-PC-AdZ" customClass="FavoriteTableViewCell" customModule="Appointment" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="91"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kqu-PC-AdZ" id="rtH-CT-tti">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBS-Sz-ICL">
+                                                    <rect key="frame" x="8" y="8" width="304" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MhY-kT-83W">
+                                                    <rect key="frame" x="8" y="48" width="304" height="34.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MhY-kT-83W" secondAttribute="bottom" id="7iy-KN-f3F"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="MhY-kT-83W" secondAttribute="trailing" id="MWk-op-Cqc"/>
+                                                <constraint firstItem="fBS-Sz-ICL" firstAttribute="top" secondItem="rtH-CT-tti" secondAttribute="topMargin" id="U1J-Pr-Qof"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fBS-Sz-ICL" secondAttribute="trailing" id="VNp-zn-XOn"/>
+                                                <constraint firstItem="MhY-kT-83W" firstAttribute="leading" secondItem="rtH-CT-tti" secondAttribute="leadingMargin" id="XX3-V9-cqf"/>
+                                                <constraint firstItem="MhY-kT-83W" firstAttribute="height" secondItem="fBS-Sz-ICL" secondAttribute="height" id="bY4-NA-SEs"/>
+                                                <constraint firstItem="fBS-Sz-ICL" firstAttribute="leading" secondItem="rtH-CT-tti" secondAttribute="leadingMargin" id="cR4-i9-hge"/>
+                                                <constraint firstItem="MhY-kT-83W" firstAttribute="top" secondItem="fBS-Sz-ICL" secondAttribute="bottom" constant="5" id="vI4-n8-bvS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="userMailAddressLabel" destination="MhY-kT-83W" id="Dr3-Ql-03Y"/>
+                                            <outlet property="userNameLabel" destination="fBS-Sz-ICL" id="3Ud-Fv-ELm"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRm-9z-6fc">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
@@ -235,11 +273,12 @@
                                 </constraints>
                                 <state key="normal" image="addFavorite"/>
                                 <connections>
-                                    <segue destination="mbl-Pk-s1k" kind="show" id="GtA-jp-ca5"/>
+                                    <segue destination="mbl-Pk-s1k" kind="show" identifier="toAddFavorite" id="GtA-jp-ca5"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nRm-9z-6fc" secondAttribute="trailing" id="2Va-j7-XUz"/>
                             <constraint firstAttribute="trailing" secondItem="qax-QK-IN3" secondAttribute="trailing" id="8ps-bW-S3n"/>
@@ -254,11 +293,12 @@
                     <connections>
                         <outlet property="addFavoriteButton" destination="nRm-9z-6fc" id="XiW-xX-0X0"/>
                         <outlet property="tableView" destination="qax-QK-IN3" id="p36-e1-H0B"/>
+                        <segue destination="lVP-am-AT9" kind="presentation" identifier="favoriteBack" id="8Og-Bt-iQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RAi-MO-sDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="1750"/>
+            <point key="canvasLocation" x="2220" y="1738"/>
         </scene>
         <!--Add Favorite View Controller-->
         <scene sceneID="p8o-tD-qm7">
@@ -295,7 +335,7 @@
                                 <state key="normal" title="お気に入り追加"/>
                                 <connections>
                                     <action selector="addRequest:" destination="mbl-Pk-s1k" eventType="touchUpInside" id="IPb-h5-X1H"/>
-                                    <segue destination="gOa-jY-WO0" kind="unwind" unwindAction="unwindWithSegue:" id="EBi-M9-iBI"/>
+                                    <segue destination="gOa-jY-WO0" kind="unwind" unwindAction="unwindWithSegue:" id="RgS-j9-tm0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -321,7 +361,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kow-Wp-Alw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="gOa-jY-WO0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2391" y="1749"/>
+            <point key="canvasLocation" x="3178" y="1748"/>
         </scene>
         <!--Appointment View Controller-->
         <scene sceneID="tcb-k3-QWW">
@@ -348,7 +388,7 @@
                                 <rect key="frame" x="36" y="110" width="248" height="30"/>
                                 <state key="normal" title="Search"/>
                                 <connections>
-                                    <segue destination="sph-MU-ygU" kind="unwind" unwindAction="unwindWithSegue:" id="u5V-w0-DGl"/>
+                                    <action selector="searchButton:" destination="4mQ-ep-xkF" eventType="touchUpInside" id="Z1N-sb-HvY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -364,12 +404,12 @@
                     </view>
                     <connections>
                         <outlet property="toMailAddressTextField" destination="KjK-kN-ROl" id="HPJ-e9-QDt"/>
+                        <segue destination="lVP-am-AT9" kind="presentation" identifier="appointmentBack" id="zxu-hr-sRa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NfK-q4-4Ma" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="sph-MU-ygU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="441" y="1751"/>
+            <point key="canvasLocation" x="-354" y="1738"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="hT4-5f-6JW">
@@ -457,4 +497,7 @@
         <image name="favorite" width="40" height="40"/>
         <image name="pintopin" width="40" height="40"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="zxu-hr-sRa"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class FavoriteViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,6 +18,8 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     var postArray: [PostData] = []
     var postData: PostData!
     var observing = false
+    
+    var selectedData: String = ""
     
     // rgb変換メソッド
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
@@ -36,10 +39,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        let nib = UINib(nibName: "FavoriteTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "Cell")
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,35 +46,21 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if FIRAuth.auth()?.currentUser != nil {
             if self.observing == false {
+                // チェック用アドレス
+                var address = FIRAuth.auth()?.currentUser?.email
+                address = address!.replacingOccurrences(of: ".", with: ",")
                 // 要素が追加されたらpostArrayに追加してTableViewを再表示する
-                let postsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("users")//.child("abc@abc,jp")
+                let postsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
                 postsRef.observe(.childAdded, with: { (snapshot) in
                     
                     // PostDataクラスを生成して受け取ったデータを設定する
                     if let uid = FIRAuth.auth()?.currentUser?.uid {
-                        self.postData = PostData(snapshot: snapshot, myId: uid)     // ここでpostDataが上書きされる
-                        self.postArray.insert(self.postData, at: 0)     //先頭に値を入れる
-                        
-                        // TableViewを再表示する
-                        self.tableView.reloadData()
-                    }
-                })
-                
-                // 要素が変更されたら該当のデータをpostArrayから一度削除した後に新しいデータを追加してTableViewを再表示する
-                postsRef.observe(.childChanged, with: { snapshot in
-                    if let uid = FIRAuth.auth()?.currentUser?.uid {
-                        self.postData = PostData(snapshot: snapshot, myId: uid)
-                        // 保持している配列からidが同じものを探す
-                        var index: Int = 0
-                        for post in self.postArray {
-                            if post.id == self.postData.id {
-                                index = self.postArray.index(of: post)!
-                                break
-                            }
+                        if(snapshot.key == address) {
+                            self.postData = PostData(snapshot: snapshot, myId: uid)
+                            self.postArray.insert(self.postData, at: 0)
+                            // TableViewを再表示する
+                            self.tableView.reloadData()
                         }
-                        self.postArray.remove(at: index)
-                        self.postArray.insert(self.postData, at: index)
-                        self.tableView.reloadData()
                     }
                 })
                 observing = true
@@ -94,7 +79,7 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // セルの行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postData == nil ? 0 : postData.favorite.count        // 現在5が返って1に上書きされる
+        return postData == nil ? 0 : postData.favorite.count
     }
     
     // Auto Layoutを使ってセルの高さを動的に変更する
@@ -107,9 +92,30 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! FavoriteTableViewCell
         cell.setPostData(favorite: postData.favorite[indexPath.row])
+        
         return cell
     }
-
+    
+    // Cell が選択された場合
+    func tableView(_ table: UITableView,didSelectRowAt indexPath: IndexPath) {
+        selectedData = postData.favorite[indexPath.row]["userMailAddress"]!
+        selectedData = selectedData.replacingOccurrences(of: ".", with: ",")
+        // favoriteBackで画面遷移
+        performSegue(withIdentifier: "favoriteBack", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "favoriteBack") {
+            // タップされたセルのお気に入りデータをdelegateLocationに渡す
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.delegateLocation = (
+                delegateAddress: "\(selectedData)",
+                delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
+                delegateLongitude: appDelegate.delegateLocation.delegateLongitude
+            )
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

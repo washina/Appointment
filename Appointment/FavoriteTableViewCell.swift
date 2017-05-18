@@ -2,7 +2,7 @@
 //  FavoriteTableViewCell.swift
 //  Appointment
 //
-//  Created by YutaIwashina on 2017/05/12.
+//  Created by YutaIwashina on 2017/05/17.
 //  Copyright © 2017年 Yuta.Iwashina. All rights reserved.
 //
 
@@ -29,5 +29,5 @@ class FavoriteTableViewCell: UITableViewCell {
         self.userNameLabel.text = "名前：" + favorite["userName"]!
         self.userMailAddressLabel.text = "アドレス：" + favorite["userMailAddress"]!
     }
-    
+
 }

@@ -37,25 +37,28 @@ class AddFavoriteViewController: UIViewController {
     
     @IBAction func addRequest(_ sender: Any) {
         if mailAddressTextField.text != "" && userNameTextField.text != "" {
-            
             // 登録者のメールアドレスを取得
             var hostMailAddress = FIRAuth.auth()?.currentUser?.email
             hostMailAddress = hostMailAddress?.replacingOccurrences(of: ".", with: ",")
-            // databaseからユーザを探し出し、favoriteに要素を入れる
-            let postRef = FIRDatabase.database().reference().child("users").child(hostMailAddress!).child("favorite")
-            let postData = ([
-                "userName": userNameTextField.text!,
-                "userMailAddress": mailAddressTextField.text!
-            ])
-            
-            // ローカルのデータベースに保存
-            postRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                postRef.child("\(snapshot.childrenCount)").updateChildValues(postData)
-                let scoresRef = FIRDatabase.database().reference(withPath: "users")
-                scoresRef.keepSynced(true)
+            FIRDatabase.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.hasChild(hostMailAddress!){
+                    // databaseからユーザを探し出し、favoriteに要素を入れる
+                    let postRef = FIRDatabase.database().reference().child("users").child(hostMailAddress!).child("favorite")
+                    let postData = ([
+                        "userName": self.userNameTextField.text!,
+                        "userMailAddress": self.mailAddressTextField.text!
+                        ])
+                    postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                        postRef.child("\(snapshot.childrenCount)").updateChildValues(postData)
+                    })
+                    SVProgressHUD.showSuccess(withStatus: "お気に入りリストに追加されました。")
+                } else {
+                    SVProgressHUD.showError(withStatus: "メールアドレスが間違っています。")
+                    return
+                }
             })
-            SVProgressHUD.showSuccess(withStatus: "お気に入りリストに追加されました。")
         } else {
+            // どちらか一方でも空
             SVProgressHUD.showError(withStatus: "必要項目を入力して下さい。")
         }
     }
@@ -65,15 +68,4 @@ class AddFavoriteViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

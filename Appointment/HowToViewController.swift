@@ -25,18 +25,15 @@ class HowToViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // 各ボタンの背景色設定
         self.backButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
         self.menuButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
-    
     }
     
     @IBAction func backButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

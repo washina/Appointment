@@ -13,6 +13,10 @@ import SVProgressHUD
 class AppointmentViewController: UIViewController {
     
     @IBOutlet weak var toMailAddressTextField: UITextField!
+    var toAddress: String = ""
+    
+    // locationの値を取得
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,20 +38,27 @@ class AppointmentViewController: UIViewController {
         return true
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        let mapViewController:MapViewController = segue.destination as! MapViewController
-        let toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
-        mapViewController.getAddress = toAddress
+    @IBAction func searchButton(_ sender: Any) {
+        toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
         FIRDatabase.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(toAddress){
-                // 認証成功時にMapViewControllerにメールアドレスの情報を送り画面遷移
-                SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。")
-                mapViewController.appointmentSearch()
+            if snapshot.hasChild(self.toAddress){
+                SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。経路を表示します。")
+                // appointmentBackで画面遷移
+                self.performSegue(withIdentifier: "appointmentBack", sender: nil)
             } else {
                 SVProgressHUD.showError(withStatus: "メールアドレスが間違っています。")
                 return
             }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        // 入力されたアドレスをdelegateLocationに渡す
+        appDelegate.delegateLocation = (
+            delegateAddress: "\(toAddress)",
+            delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
+            delegateLongitude: appDelegate.delegateLocation.delegateLongitude
+        )
     }
 
     override func didReceiveMemoryWarning() {

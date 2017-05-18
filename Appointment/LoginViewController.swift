@@ -18,7 +18,6 @@ class LoginViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -46,7 +45,6 @@ class LoginViewController: UIViewController {
                     
                     // HUDを消す
                     SVProgressHUD.dismiss()
-                    
                     // 画面を閉じてViewControllerに戻る
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -95,14 +93,11 @@ class LoginViewController: UIViewController {
                     } else {
                         print("DEBUG_PRINT: displayNameの設定に失敗しました。")
                     }
-                    
                 }
             } else {
                 SVProgressHUD.showError(withStatus: "メールアドレスに特殊文字などが入っていないか確認して下さい")
             }
-            
         }
     }
     /* アカウント作成処理 end----------------------------------------------------------------------------*/
-
 }

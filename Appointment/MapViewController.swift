@@ -18,14 +18,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var appointmentButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    
+    var postData: PostData!
         
     // 現在地、目的地の取得準備
     var userLocation: CLLocationCoordinate2D!
     var destinationLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
-
-    // AppointmentViewontrollerで入力されたメールアドレスの受取
-    var getAddress: String!
+    
+    // locationの値を取得
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // rgb変換メソッド
     func UIColorFromRGB(rgbValue: UInt) -> UIColor {
@@ -36,6 +38,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             alpha: CGFloat(1.0)
         )
     }
+    
+    // 戻る際の処理
+    @IBAction func unwind(segue: UIStoryboardSegue) {}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +53,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         // 現在地をマップ中心部に、現在地にカーソルを表示
+        mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
-        mapView.userTrackingMode = MKUserTrackingMode.follow
         
         /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
         navigationController?.navigationBar.isTranslucent = false                                   // バーを半透明にするか
@@ -65,12 +70,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest       // 最高精度に設定
         locationManager.distanceFilter = 100.0                          // 更新頻度（100メートルずつに更新する）
         /* LocationManager関連の設定 end-----------------------------------------------------------------------*/
-        
-    }
 
-    // 戻り処理
-    @IBAction func unwind(segue: UIStoryboardSegue) {}
-    
+        if (appDelegate.delegateLocation.delegateAddress != "") {
+            appointmentSearch()
+        }
+    }
 
     /* 経路検索、表示処理 ----------------------------------------------------------------------------------------*/
     func appointmentSearch() {
@@ -81,13 +85,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.removeOverlays(mapView.overlays)
         
         // 位置情報読み取り処理
-        let friendRef = FIRDatabase.database().reference().child("users").child(getAddress)
+        let friendRef = FIRDatabase.database().reference().child("users").child(appDelegate.delegateLocation.delegateAddress)
         friendRef.observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapshotDictionary = snapshot.value as? [String:AnyObject]{
                 // データベース上の値を格納
                 let latitude = snapshotDictionary["latitude"] as! Double
                 let longitude = snapshotDictionary["longitude"] as! Double
-                        
+                
+                // 現在地の緯度経度をそれぞれ代入
+                let lat: CLLocationDegrees = self.appDelegate.delegateLocation.delegateLatitude
+                let lon: CLLocationDegrees = self.appDelegate.delegateLocation.delegateLongitude
+                self.userLocation = CLLocationCoordinate2DMake(lat, lon)
+                
                 // 目的地の座標を指定
                 self.destinationLocation = CLLocationCoordinate2DMake(latitude, longitude)
                         
@@ -109,32 +118,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         
                 let directions = MKDirections(request:request)
                 directions.calculate{ (response, error) in
-                            
                     if (error != nil || response!.routes.isEmpty) {
                         return
                     }
                     let route: MKRoute = response!.routes[0] as MKRoute
-                            
                     // 経路を描画
                     self.mapView.add(route.polyline)
-                            
                 }
                         
                 // ピンを生成
                 let toPin: MKPointAnnotation = MKPointAnnotation()
-                        
                 // 座標をセット
                 toPin.coordinate = self.destinationLocation
-                        
                 // titleをセット
                 toPin.title = "目的地"
-                        
                 // mapViewに追加
                 self.mapView.addAnnotation(toPin)
             }
-            
         })
-        
     }
     
     // 経路表示設定
@@ -150,9 +151,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
-
 
 extension MapViewController: CLLocationManagerDelegate {
     
@@ -210,6 +209,13 @@ extension MapViewController: CLLocationManagerDelegate {
             ] as [String : Any]
             postRef.updateChildValues(postData)
             
+            // appDelegateに値をセット
+            appDelegate.delegateLocation = (
+                delegateAddress: "\(appDelegate.delegateLocation.delegateAddress)",
+                delegateLatitude: location.coordinate.latitude,
+                delegateLongitude: location.coordinate.longitude
+            )
+            
             // 現在地の緯度経度をそれぞれ代入
             let lat: CLLocationDegrees = location.coordinate.latitude
             let lon: CLLocationDegrees = location.coordinate.longitude
@@ -223,18 +229,15 @@ extension MapViewController: CLLocationManagerDelegate {
             mapView.setRegion(region, animated: true)
             
             // 現在地が変わったら自動的に経路を再検索する
-            if(getAddress != nil) {
+            if(appDelegate.delegateLocation.delegateAddress != "") {
                 appointmentSearch()
             }
-            
         }
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("<DEBUG_PRINT>位置情報の取得に失敗しました")
     }
     /* 起動時、現在位置取得、マップ表示処理 end------------------------------------------------------------------------------*/
-
 }
 
