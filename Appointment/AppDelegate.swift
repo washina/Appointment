@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SlideMenuControllerSwift
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,12 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var delegateLocation: Location = ("", 0.0, 0.0)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-        // Firebase使用準備
-        FIRApp.configure()
+        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+        application.registerForRemoteNotifications()
+        
+        FirebaseApp.configure()
         
         return true
+    }
+    
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

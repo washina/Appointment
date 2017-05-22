@@ -16,7 +16,7 @@ class PostData: NSObject {
     var longitude: Double?
     var date: NSDate?
     
-    init(snapshot: FIRDataSnapshot, myId: String) {
+    init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
         
         let valueDictionary = snapshot.value as! [String: AnyObject]

@@ -14,6 +14,17 @@ class AddFavoriteViewController: UIViewController {
     
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var addButton: UIButton!
+    
+    // rgb変換メソッド
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +32,10 @@ class AddFavoriteViewController: UIViewController {
         // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
+        
+        // ボタンのデザイン変更
+        self.addButton.backgroundColor = UIColorFromRGB(rgbValue: 0xfa8072)
+        self.addButton.setTitleColor(UIColorFromRGB(rgbValue: 0xffffff), for: .normal)
     }
     
     // キーボードを閉じる
@@ -38,12 +53,12 @@ class AddFavoriteViewController: UIViewController {
     @IBAction func addRequest(_ sender: Any) {
         if mailAddressTextField.text != "" && userNameTextField.text != "" {
             // 登録者のメールアドレスを取得
-            var hostMailAddress = FIRAuth.auth()?.currentUser?.email
+            var hostMailAddress = Auth.auth().currentUser?.email
             hostMailAddress = hostMailAddress?.replacingOccurrences(of: ".", with: ",")
-            FIRDatabase.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            Database.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.hasChild(hostMailAddress!){
                     // databaseからユーザを探し出し、favoriteに要素を入れる
-                    let postRef = FIRDatabase.database().reference().child("users").child(hostMailAddress!).child("favorite")
+                    let postRef = Database.database().reference().child("users").child(hostMailAddress!).child("favorite")
                     let postData = ([
                         "userName": self.userNameTextField.text!,
                         "userMailAddress": self.mailAddressTextField.text!

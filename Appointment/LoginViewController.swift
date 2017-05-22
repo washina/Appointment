@@ -15,10 +15,27 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var mailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var displayNameTextField: UITextField!
-        
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var createButton: UIButton!
+    
+    // rgb変換メソッド
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // ボタンのデザイン変更
+        self.loginButton.backgroundColor = UIColorFromRGB(rgbValue: 0xfa8072)
+        self.loginButton.setTitleColor(UIColorFromRGB(rgbValue: 0xffffff), for: .normal)
+        self.createButton.backgroundColor = UIColorFromRGB(rgbValue: 0xfa8072)
+        self.createButton.setTitleColor(UIColorFromRGB(rgbValue: 0xffffff), for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +52,7 @@ class LoginViewController: UIViewController {
                 return
             }
             
-            FIRAuth.auth()?.signIn(withEmail: address, password: password) { user, error in
+            Auth.auth().signIn(withEmail: address, password: password) { user, error in
                 if let error = error {
                     print("DEBUG_PRINT:" + error.localizedDescription)
                     SVProgressHUD.showError(withStatus: "サインインに失敗しました")
@@ -68,7 +85,7 @@ class LoginViewController: UIViewController {
             let predicate = NSPredicate(format: "SELF MATCHES %@", mail)
             // メールアドレスが正しく入力されているかのチェック
             if predicate.evaluate(with: address) {
-                FIRAuth.auth()?.createUser(withEmail: address, password: password) { user, error in
+                Auth.auth().createUser(withEmail: address, password: password) { user, error in
                     if let error = error {
                         // エラーがあったら原因をprintして、returnすることで以降の処理を実行せずに処理を終了する
                         print("DEBUG_PRINT: " + error.localizedDescription)
@@ -77,9 +94,9 @@ class LoginViewController: UIViewController {
                     }
                     
                     // 表示名を設定する
-                    let user = FIRAuth.auth()?.currentUser
+                    let user = Auth.auth().currentUser
                     if let user = user {
-                        let changeRequest = user.profileChangeRequest()
+                        let changeRequest = user.createProfileChangeRequest()
                         changeRequest.displayName = displayName
                         changeRequest.commitChanges { error in
                             if let error = error {

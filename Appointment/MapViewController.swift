@@ -85,7 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.removeOverlays(mapView.overlays)
         
         // 位置情報読み取り処理
-        let friendRef = FIRDatabase.database().reference().child("users").child(appDelegate.delegateLocation.delegateAddress)
+        let friendRef = Database.database().reference().child("users").child(appDelegate.delegateLocation.delegateAddress)
         friendRef.observeSingleEvent(of: .value, with: {(snapshot) in
             if let snapshotDictionary = snapshot.value as? [String:AnyObject]{
                 // データベース上の値を格納
@@ -197,11 +197,11 @@ extension MapViewController: CLLocationManagerDelegate {
             let time = NSDate.timeIntervalSinceReferenceDate
             
             // 辞書を作成してFirebaseに保存する
-            var postId = FIRAuth.auth()?.currentUser?.email
+            var postId = Auth.auth().currentUser?.email
             
             // .（ドット）を検索して,（カンマ）に置換
             postId = postId?.replacingOccurrences(of: ".", with: ",")
-            let postRef = FIRDatabase.database().reference().child("users").child(postId!)
+            let postRef = Database.database().reference().child("users").child(postId!)
             let postData = [
                 "time": String(time),
                 "latitude": location.coordinate.latitude,

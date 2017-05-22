@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -44,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Shf-zm-jIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="34" y="900"/>
+            <point key="canvasLocation" x="1594" y="2620"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="59z-hu-vOD">
@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Lr-1n-CR1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="887" y="1738"/>
+            <point key="canvasLocation" x="34" y="1738"/>
         </scene>
         <!--Right Menu View Controller-->
         <scene sceneID="CsL-Hf-Nnx">
@@ -143,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxc-47-STr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1594" y="900"/>
+            <point key="canvasLocation" x="34" y="937"/>
         </scene>
         <!--How To View Controller-->
         <scene sceneID="csQ-X1-5bE">
@@ -192,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WGz-Xr-yXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2482.5" y="900"/>
+            <point key="canvasLocation" x="1594" y="937"/>
         </scene>
         <!--Profile Setting View Controller-->
         <scene sceneID="SmW-X5-Mlt">
@@ -210,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vrN-pY-XKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3388" y="900"/>
+            <point key="canvasLocation" x="2852" y="937"/>
         </scene>
         <!--Favorite View Controller-->
         <scene sceneID="mUm-e3-2Jd">
@@ -298,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RAi-MO-sDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2220" y="1738"/>
+            <point key="canvasLocation" x="1594" y="1738"/>
         </scene>
         <!--Add Favorite View Controller-->
         <scene sceneID="p8o-tD-qm7">
@@ -331,7 +331,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1l5-zA-JgQ">
-                                <rect key="frame" x="106" y="160" width="108" height="30"/>
+                                <rect key="frame" x="36" y="160" width="248" height="30"/>
                                 <state key="normal" title="お気に入り追加"/>
                                 <connections>
                                     <action selector="addRequest:" destination="mbl-Pk-s1k" eventType="touchUpInside" id="IPb-h5-X1H"/>
@@ -347,13 +347,16 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Plv-7b-5KD" secondAttribute="trailing" constant="20" id="By1-dK-lI7"/>
                             <constraint firstItem="Plv-7b-5KD" firstAttribute="centerX" secondItem="VPY-A8-GkW" secondAttribute="centerX" id="SmD-Mt-9hA"/>
                             <constraint firstItem="1l5-zA-JgQ" firstAttribute="top" secondItem="hZI-J2-QQj" secondAttribute="bottom" constant="30" id="YpX-9Z-zkp"/>
+                            <constraint firstItem="1l5-zA-JgQ" firstAttribute="leading" secondItem="VPY-A8-GkW" secondAttribute="leadingMargin" constant="20" id="jf9-Qh-DvN"/>
                             <constraint firstItem="Plv-7b-5KD" firstAttribute="leading" secondItem="VPY-A8-GkW" secondAttribute="leadingMargin" constant="20" id="lhT-1r-Pc0"/>
                             <constraint firstItem="Plv-7b-5KD" firstAttribute="top" secondItem="9p3-e0-sXc" secondAttribute="bottom" constant="30" id="stT-d1-6tH"/>
                             <constraint firstItem="hZI-J2-QQj" firstAttribute="leading" secondItem="VPY-A8-GkW" secondAttribute="leadingMargin" constant="20" id="wdm-KH-5L3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1l5-zA-JgQ" secondAttribute="trailing" constant="20" id="y7o-zU-hVb"/>
                             <constraint firstItem="hZI-J2-QQj" firstAttribute="top" secondItem="Plv-7b-5KD" secondAttribute="bottom" constant="20" id="zyU-G1-55K"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="1l5-zA-JgQ" id="dRw-nL-929"/>
                         <outlet property="mailAddressTextField" destination="Plv-7b-5KD" id="SL9-rN-TJF"/>
                         <outlet property="userNameTextField" destination="hZI-J2-QQj" id="YEW-C9-Oqf"/>
                     </connections>
@@ -361,7 +364,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kow-Wp-Alw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="gOa-jY-WO0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3178" y="1748"/>
+            <point key="canvasLocation" x="2852" y="1738"/>
         </scene>
         <!--Appointment View Controller-->
         <scene sceneID="tcb-k3-QWW">
@@ -386,7 +389,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRA-gR-7gl">
                                 <rect key="frame" x="36" y="110" width="248" height="30"/>
-                                <state key="normal" title="Search"/>
+                                <state key="normal" title="検索"/>
                                 <connections>
                                     <action selector="searchButton:" destination="4mQ-ep-xkF" eventType="touchUpInside" id="Z1N-sb-HvY"/>
                                 </connections>
@@ -403,13 +406,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchButton" destination="FRA-gR-7gl" id="tHn-Ni-x0Z"/>
                         <outlet property="toMailAddressTextField" destination="KjK-kN-ROl" id="HPJ-e9-QDt"/>
                         <segue destination="lVP-am-AT9" kind="presentation" identifier="appointmentBack" id="zxu-hr-sRa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NfK-q4-4Ma" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-354" y="1738"/>
+            <point key="canvasLocation" x="34" y="2620"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="hT4-5f-6JW">
@@ -481,7 +485,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="createButton" destination="4zd-2k-kYz" id="mXe-Xp-JTa"/>
                         <outlet property="displayNameTextField" destination="MfU-Jk-mYe" id="bYr-z4-loA"/>
+                        <outlet property="loginButton" destination="bYL-FU-SD7" id="Fh9-ae-NCm"/>
                         <outlet property="mailAddressTextField" destination="lTd-ZA-jMT" id="SAI-99-6OE"/>
                         <outlet property="passwordTextField" destination="lWb-85-SYO" id="RLG-Hy-BSR"/>
                     </connections>

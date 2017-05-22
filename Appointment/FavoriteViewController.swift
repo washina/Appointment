@@ -44,17 +44,17 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if FIRAuth.auth()?.currentUser != nil {
+        if Auth.auth().currentUser != nil {
             if self.observing == false {
                 // チェック用アドレス
-                var address = FIRAuth.auth()?.currentUser?.email
+                var address = Auth.auth().currentUser?.email
                 address = address!.replacingOccurrences(of: ".", with: ",")
                 // 要素が追加されたらpostArrayに追加してTableViewを再表示する
-                let postsRef: FIRDatabaseReference = FIRDatabase.database().reference().child("users")
+                let postsRef: DatabaseReference = Database.database().reference().child("users")
                 postsRef.observe(.childAdded, with: { (snapshot) in
                     
                     // PostDataクラスを生成して受け取ったデータを設定する
-                    if let uid = FIRAuth.auth()?.currentUser?.uid {
+                    if let uid = Auth.auth().currentUser?.uid {
                         if(snapshot.key == address) {
                             self.postData = PostData(snapshot: snapshot, myId: uid)
                             self.postArray.insert(self.postData, at: 0)
@@ -71,7 +71,7 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
                 postArray = []
                 tableView.reloadData()
                 // オブザーバーを削除する
-                FIRDatabase.database().reference().removeAllObservers()
+                Database.database().reference().removeAllObservers()
                 observing = false
             }
         }

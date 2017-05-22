@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>766429256544-c36v396u6cl5p16civ4u4t209dnu82uo.apps.googleusercontent.com</string>
+	<string>766429256544-phom4ob99bqok35a0opkulmf7cu9ro53.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766429256544-c36v396u6cl5p16civ4u4t209dnu82uo</string>
+	<string>com.googleusercontent.apps.766429256544-phom4ob99bqok35a0opkulmf7cu9ro53</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB54dUHmjlqD9R0oLN4Ykyf514BOflD8os</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>jp.techacademy.yuta.iwashina.Appointment</string>
+	<string>jp.washina.Appointment</string>
 	<key>PROJECT_ID</key>
 	<string>appointment-10cc4</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766429256544:ios:165cb320a816a064</string>
+	<string>1:766429256544:ios:cc993b272ddfc76a</string>
 	<key>DATABASE_URL</key>
 	<string>https://appointment-10cc4.firebaseio.com</string>
 </dict>

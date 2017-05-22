@@ -21,11 +21,11 @@
 		D8576D7B1EC161F900F784B5 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8576D7A1EC161F900F784B5 /* SlideViewController.swift */; };
 		D87150EE1EC5471300A3F05F /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87150ED1EC5471300A3F05F /* PostData.swift */; };
 		D8730EA11EC2CDE100D11386 /* AddFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8730EA01EC2CDE100D11386 /* AddFavoriteViewController.swift */; };
-		D8730EAB1EC2E9AF00D11386 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8730EAA1EC2E9AF00D11386 /* GoogleService-Info.plist */; };
 		D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C634F1EB845A40041967C /* RightMenuViewController.swift */; };
 		D88C63521EB864410041967C /* HowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63511EB864400041967C /* HowToViewController.swift */; };
 		D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63531EB866850041967C /* ProfileSettingViewController.swift */; };
 		D88C63561EB866F80041967C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63551EB866F80041967C /* FavoriteViewController.swift */; };
+		D89ADCCF1ED2BB5600B29045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,11 +46,12 @@
 		D8576D7A1EC161F900F784B5 /* SlideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		D87150ED1EC5471300A3F05F /* PostData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		D8730EA01EC2CDE100D11386 /* AddFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavoriteViewController.swift; sourceTree = "<group>"; };
-		D8730EAA1EC2E9AF00D11386 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D88C634F1EB845A40041967C /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		D88C63511EB864400041967C /* HowToViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToViewController.swift; sourceTree = "<group>"; };
 		D88C63531EB866850041967C /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D88C63551EB866F80041967C /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		D89ADCAC1ED2A7B600B29045 /* Appointment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Appointment.entitlements; sourceTree = "<group>"; };
+		D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appointment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Appointment/Pods-Appointment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +107,7 @@
 		D823262A1EAEEEB5008B7615 /* Appointment */ = {
 			isa = PBXGroup;
 			children = (
+				D89ADCAC1ED2A7B600B29045 /* Appointment.entitlements */,
 				D823262B1EAEEEB5008B7615 /* AppDelegate.swift */,
 				D823262D1EAEEEB5008B7615 /* ViewController.swift */,
 				D823262F1EAEEEB5008B7615 /* Main.storyboard */,
@@ -123,7 +125,7 @@
 				D82326321EAEEEB5008B7615 /* Assets.xcassets */,
 				D82326341EAEEEB5008B7615 /* LaunchScreen.storyboard */,
 				D82326371EAEEEB5008B7615 /* Info.plist */,
-				D8730EAA1EC2E9AF00D11386 /* GoogleService-Info.plist */,
+				D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */,
 			);
 			path = Appointment;
 			sourceTree = "<group>";
@@ -163,8 +165,13 @@
 				TargetAttributes = {
 					D82326271EAEEEB5008B7615 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = NWN6RK793R;
+						DevelopmentTeam = UZJ6XV93CM;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -192,7 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D82326361EAEEEB5008B7615 /* LaunchScreen.storyboard in Resources */,
-				D8730EAB1EC2E9AF00D11386 /* GoogleService-Info.plist in Resources */,
+				D89ADCCF1ED2BB5600B29045 /* GoogleService-Info.plist in Resources */,
 				D82326331EAEEEB5008B7615 /* Assets.xcassets in Resources */,
 				D82326311EAEEEB5008B7615 /* Main.storyboard in Resources */,
 			);
@@ -389,11 +396,12 @@
 			baseConfigurationReference = ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NWN6RK793R;
+				CODE_SIGN_ENTITLEMENTS = Appointment/Appointment.entitlements;
+				DEVELOPMENT_TEAM = UZJ6XV93CM;
 				INFOPLIST_FILE = Appointment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.yuta.iwashina.Appointment;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.washina.Appointment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -404,11 +412,12 @@
 			baseConfigurationReference = C7B89CCA13A1376C8D4EAA12 /* Pods-Appointment.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NWN6RK793R;
+				CODE_SIGN_ENTITLEMENTS = Appointment/Appointment.entitlements;
+				DEVELOPMENT_TEAM = UZJ6XV93CM;
 				INFOPLIST_FILE = Appointment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.yuta.iwashina.Appointment;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.washina.Appointment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
