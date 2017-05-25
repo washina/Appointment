@@ -59,7 +59,44 @@ class AppointmentViewController: UIViewController {
         toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
         Database.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(self.toAddress){
-                SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。経路を表示します。")
+                //SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。経路を表示します。")
+                
+                /* 通知送信処理 --------------------------------------------------------------------------------*/
+                
+                // HTTP POST
+                let urlString = "https://fcm.googleapis.com/fcm/send"
+                var request = URLRequest(url: URL(string:urlString)!)
+                // set the method(HTTP-POST)
+                request.httpMethod = "POST"
+                // set the header(s)
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                // set the request-body(JSON)
+                let params: [String: Any] = [
+                    "to": "bar",
+                    "data": [
+                        "score": 1,
+                        "time": 300
+                    ]
+                ]
+                do{
+                    request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+                }catch{
+                    print(error.localizedDescription)
+                }
+                // use NSURLSessionDataTask
+                let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                    if (error == nil) {
+                        let result = String(data: data!, encoding: .utf8)!
+                        print(result)
+                    } else {
+                        print(error)
+                    }
+                })
+                task.resume()
+                
+                /* 通知送信処理 end-----------------------------------------------------------------------------*/
+                
                 // appointmentBackで画面遷移
                 self.performSegue(withIdentifier: "appointmentBack", sender: nil)
             } else {

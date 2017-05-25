@@ -15,6 +15,7 @@ class PostData: NSObject {
     var latitude: Double?
     var longitude: Double?
     var date: NSDate?
+    var token: String?
     
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -30,6 +31,8 @@ class PostData: NSObject {
         
         let time = valueDictionary["time"] as? String
         self.date = NSDate(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
+        
+        self.token = valueDictionary["token"] as? String
         
     }
 }

@@ -45,6 +45,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Databaseの保存場所を決定する
+        var postId = Auth.auth().currentUser?.email
+        // .（ドット）を検索して,（カンマ）に置換
+        postId = postId?.replacingOccurrences(of: ".", with: ",")
+        
+        // 通知用tokenの生成
+        let token = InstanceID.instanceID().token()!
+        
+        // tokenをFirebaseDatabaseにupdate
+        let postRef = Database.database().reference().child("users").child(postId!)
+        let postData = [ "token": token ] as [String : Any]
+        postRef.updateChildValues(postData)
+        
         // 各ボタンの背景色設定
         self.appointmentButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
         self.favoriteButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
@@ -196,11 +209,12 @@ extension MapViewController: CLLocationManagerDelegate {
             // time
             let time = NSDate.timeIntervalSinceReferenceDate
             
-            // 辞書を作成してFirebaseに保存する
+            // Databaseの保存場所を決定する
             var postId = Auth.auth().currentUser?.email
-            
             // .（ドット）を検索して,（カンマ）に置換
             postId = postId?.replacingOccurrences(of: ".", with: ",")
+            
+            // 各データをupdateする
             let postRef = Database.database().reference().child("users").child(postId!)
             let postData = [
                 "time": String(time),
