@@ -24,60 +24,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // 初回起動時に通知の許可を促す処理
-        if #available(iOS 10.0, *) {
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
-            
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
-            // For iOS 10 data message (sent via FCM)
-            Messaging.messaging().remoteMessageDelegate = self as? MessagingDelegate
-            
-        } else {
-            let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        application.registerForRemoteNotifications()
-        
-        
-//        コメントアウトはトピック作成の為のコード
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotificaiton), name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
-//        if let refreshedToken = InstanceID.instanceID().token() {
-//            print("InstanceID token: \(refreshedToken)")
-//            connectToFcm()
+//        if #available(iOS 10.0, *) {
+//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//            UNUserNotificationCenter.current().requestAuthorization(
+//                options: authOptions,
+//                completionHandler: {_, _ in })
+//            
+//            // For iOS 10 display notification (sent via APNS)
+//            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+//            // For iOS 10 data message (sent via FCM)
+//            Messaging.messaging().remoteMessageDelegate = self as? MessagingDelegate
+//            
+//        } else {
+//            let settings: UIUserNotificationSettings =
+//                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//            application.registerUserNotificationSettings(settings)
 //        }
-        
+        let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
         
         return true
     }
-    
-//    func tokenRefreshNotificaiton(notification: NSNotification) {
-//        if let refreshedToken = InstanceID.instanceID().token() {
-//            print("InstanceID token: \(refreshedToken)")
-//            connectToFcm()
-//        }
-//    }
-    
-//    func connectToFcm() {
-//        Messaging.messaging().connect { (error) in
-//            if error != nil {
-//                print("Unable to connect with FCM. \(String(describing: error))")
-//            } else {
-//                print("Connected to FCM.")
-//                let postId = Auth.auth().currentUser?.email
-//                Messaging.messaging().subscribe(toTopic: "/topics/\(postId!)")
-//            }
-//        }
-//    }
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
     }
-
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+    }
+    
+    // ios10
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert])
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
