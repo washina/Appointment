@@ -14,7 +14,7 @@ class PostData: NSObject {
     var favorite = [[String:String]]()
     var latitude: Double?
     var longitude: Double?
-    var date: NSDate?
+    //var date: NSDate?
     var token: String?
     
     init(snapshot: DataSnapshot, myId: String) {
@@ -29,8 +29,8 @@ class PostData: NSObject {
         self.latitude = valueDictionary["latitude"] as? Double
         self.longitude = valueDictionary["longitude"] as? Double
         
-        let time = valueDictionary["time"] as? String
-        self.date = NSDate(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
+        //let time = valueDictionary["time"] as? String
+        //self.date = NSDate(timeIntervalSinceReferenceDate: TimeInterval(time!)!)
         
         self.token = valueDictionary["token"] as? String
         

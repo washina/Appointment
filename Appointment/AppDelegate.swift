@@ -12,7 +12,7 @@ import SlideMenuControllerSwift
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
@@ -23,27 +23,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
         // 初回起動時に通知の許可を促す処理
-//        if #available(iOS 10.0, *) {
-//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//            UNUserNotificationCenter.current().requestAuthorization(
-//                options: authOptions,
-//                completionHandler: {_, _ in })
-//            
-//            // For iOS 10 display notification (sent via APNS)
-//            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
-//            // For iOS 10 data message (sent via FCM)
-//            Messaging.messaging().remoteMessageDelegate = self as? MessagingDelegate
-//            
-//        } else {
-//            let settings: UIUserNotificationSettings =
-//                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(settings)
-//        }
-        let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
+        if #available(iOS 10.0, *) {
+            // iOS 10
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.badge, .sound, .alert], completionHandler: { (granted, error) in
+                if error != nil {
+                    return
+                }
+                
+                if granted {
+                    debugPrint("通知許可")
+                } else {
+                    debugPrint("通知拒否")
+                }
+            })
+            
+        } else {
+            // iOS 9
+            let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+        }
         
         return true
     }
@@ -53,19 +56,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
-                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        Messaging.messaging().appDidReceiveMessage(userInfo)
-    }
-    
     // ios10
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert])
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .alert])
     }
     
+    /* 通知受信->起動時の処理 --------------------------------------------------------------------------------------------------*/
+    // 通知からアプリを起動
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        if launchOptions != nil {
+            // アプリが起動していない場合に通知からタップされた場合の処理を実装
+        }
+    }
+    
+    // フォアグラウンドの際の処理、バックグラウンド時の通知からアプリ起動
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        switch application.applicationState {
+        case .Active:
+        // アプリフォアグラウンド時の処理
+        case .Inactive:
+        // アプリバッググラウンド時の処理
+        default:
+            break
+        }
+    }
+    /* 通知受信->起動時の処理 --------------------------------------------------------------------------------------------------*/
+
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
