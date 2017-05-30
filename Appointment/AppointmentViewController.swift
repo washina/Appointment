@@ -62,55 +62,66 @@ class AppointmentViewController: UIViewController {
         toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
         Database.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(self.toAddress){
-                SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認しました。リクエストを送りました。")
                 
-                /* 通知送信処理 --------------------------------------------------------------------------------*/
-                //abc@abc.jp
+                /* request確認処理 --------------------------------------------------------------------------------*/
                 Database.database().reference().child("users").child(self.toAddress).observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    if snapshot.hasChild("request") {
+                        print("has requesttttttttttttttttttttttttttttt")
+                    } else {
+                        print("dont have requesttttttttttttttttttttttttttttttt")
+                    }
+                    
                     let uid = Auth.auth().currentUser?.uid
-                    let userAddress = Auth.auth().currentUser?.email
+                    var userAddress = Auth.auth().currentUser?.email
                     self.postData = PostData(snapshot: snapshot, myId: uid!)
                     let token = self.postData.token
-                    if token != nil {
-                        var request = URLRequest(url: URL(string: "https://fcm.googleapis.com/fcm/send")!)
-                        request.httpMethod = "POST"
-                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                        // サーバキーをセット
-                        request.setValue("key=AAAAsnK-W2A:APA91bFm-sAT9qzl_de-Z8yuMbisrorxQscnw1xS09ORlPlrE_I_suH0w8kDMNVs_wyg5O-bOAeDuGGMc8CvGhzqepXWiuN2sXwV2HLLnC0b-gutxFCVpLNsIoRMhPoTFshZ7aG9yMyA", forHTTPHeaderField: "Authorization")
-                        // 渡すデータをJSON形式で作成
-                        let json = [
-                            "to" : token!,
-                            "priority" : "high",
-                            "notification" : [
-                                "body" : "\(userAddress!) さんから、リクエストが届いています。",
-                                "Sound" : "default"
-                            ]
-                        ] as [String : Any]
-                        do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-                            request.httpBody = jsonData
-                            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                                guard let data = data, error == nil else {
-                                    print("Error=\(error!)")
-                                    return
-                                }
-                                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-                                    print("Status Code should be 200, but is \(httpStatus.statusCode)")
-                                    print("Response = \(response!)")
-                                }
-                                
-                                let responseString = String(data: data, encoding: .utf8)
-                                print("responseString = \(responseString!)")
+                    
+                    var request = URLRequest(url: URL(string: "https://fcm.googleapis.com/fcm/send")!)
+                    request.httpMethod = "POST"
+                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    // サーバキーをセット
+                    request.setValue("key=AAAAsnK-W2A:APA91bFm-sAT9qzl_de-Z8yuMbisrorxQscnw1xS09ORlPlrE_I_suH0w8kDMNVs_wyg5O-bOAeDuGGMc8CvGhzqepXWiuN2sXwV2HLLnC0b-gutxFCVpLNsIoRMhPoTFshZ7aG9yMyA", forHTTPHeaderField: "Authorization")
+                    // 渡すデータをJSON形式で作成
+                    let json = [
+                        "to" : token!,
+                        "priority" : "high",
+                        "notification" : [
+                            "body" : "\(userAddress!) さんから、リクエストが届いています。",
+                            "Sound" : "default"
+                        ]
+                    ] as [String : Any]
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                        request.httpBody = jsonData
+                        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                            guard let data = data, error == nil else {
+                                print("Error=\(error!)")
+                                return
                             }
-                            task.resume()
+                            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                                print("Status Code should be 200, but is \(httpStatus.statusCode)")
+                                print("Response = \(response!)")
+                            }
+                            
+                            let responseString = String(data: data, encoding: .utf8)
+                            print("responseString = \(responseString!)")
                         }
-                        catch {
-                            print(error)
-                        }
+                        task.resume()
                     }
+                    catch {
+                        print(error)
+                    }
+                    
+                    userAddress = userAddress?.replacingOccurrences(of: ".", with: ",")
+                    let postRef = Database.database().reference().child("users").child(self.toAddress).child("request")
+                    let setPostData = [
+                        "\(userAddress!)": "no"
+                    ] as [String: Any]
+                    postRef.updateChildValues(setPostData)
                 })
                 
-                /* 通知送信処理 end-----------------------------------------------------------------------------*/
+                /* request確認処理 end-----------------------------------------------------------------------------*/
                 
                 // appointmentBackで画面遷移
                 self.performSegue(withIdentifier: "appointmentBack", sender: nil)

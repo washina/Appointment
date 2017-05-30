@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        InstanceID.instanceID().setAPNSToken(deviceToken as Data, type: .sandbox)
+        Messaging.messaging().setAPNSToken(deviceToken, type: MessagingAPNSTokenType.sandbox)
     }
     
     // ios10
@@ -64,27 +64,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.sound, .alert])
     }
     
-    /* 通知受信->起動時の処理 --------------------------------------------------------------------------------------------------*/
-    // 通知からアプリを起動
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if launchOptions != nil {
-            // アプリが起動していない場合に通知からタップされた場合の処理を実装
-        }
+    // 通知からアプリを起動した際の処理
+    @available(iOS 10.0, *)
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,withCompletionHandler completionHandler: @escaping () -> Void) {
+        NSLog("opennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+        completionHandler()
+        
+        // RequestViewController（リクエスト確認画面）へ
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mapVC: MapViewController = storyboard.instantiateViewController(withIdentifier: "Map") as! MapViewController
+        self.window?.rootViewController = mapVC
+        mapVC.performSegue(withIdentifier: "toRequest", sender: nil)
     }
-    
-    // フォアグラウンドの際の処理、バックグラウンド時の通知からアプリ起動
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        switch application.applicationState {
-        case .Active:
-        // アプリフォアグラウンド時の処理
-        case .Inactive:
-        // アプリバッググラウンド時の処理
-        default:
-            break
-        }
-    }
-    /* 通知受信->起動時の処理 --------------------------------------------------------------------------------------------------*/
-
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

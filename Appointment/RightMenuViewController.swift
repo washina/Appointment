@@ -12,7 +12,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
-    let texts = ["使い方", "アカウント", "お気に入り"]
+    let texts = ["使い方", "アカウント", "リクエスト"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +44,9 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             let plofileSettingVC = self.storyboard?.instantiateViewController(withIdentifier: "Plofile")
             self.present(plofileSettingVC!, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
-        } else if indexPath.row == 2 {      // 「お気に入り」がタップされた時
-            let favoriteVC = self.storyboard?.instantiateViewController(withIdentifier: "Favorite")
-            self.present(favoriteVC!, animated: true, completion: nil)
+        } else if indexPath.row == 2 {      // 「リクエスト」がタップされた時
+            let requestVC = self.storyboard?.instantiateViewController(withIdentifier: "Request")
+            self.present(requestVC!, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
