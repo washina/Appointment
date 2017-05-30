@@ -15,6 +15,7 @@ class PostData: NSObject {
     var latitude: Double?
     var longitude: Double?
     var token: String?
+    var request: String?
     
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -29,6 +30,8 @@ class PostData: NSObject {
         self.longitude = valueDictionary["longitude"] as? Double
         
         self.token = valueDictionary["token"] as? String
+        
+        self.request = valueDictionary["request"] as? String
         
     }
 }
