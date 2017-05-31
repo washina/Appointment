@@ -69,7 +69,7 @@ class AppointmentViewController: UIViewController {
                     
                     // Database上にrequestがあるかどうか
                     if snapshot.hasChild("request") {
-                        print("has requesttttttttttttttttttttttttttttt")
+                        print("HAS_REQUEST")
                         
                         // Database上のrequestに自分のアドレスがあるかどうか（過去にリクエストを飛ばしたことがあるかどうか）
                         var userAddress = Auth.auth().currentUser?.email
@@ -77,24 +77,24 @@ class AppointmentViewController: UIViewController {
                         ref.child("request").observeSingleEvent(of: .value, with: { (snapshot) in
                             
                             if snapshot.hasChild(userAddress!) {
-                                print("has userAddresssssssssssssssssssssss")   // 過去に飛ばしたことアリ
+                                print("HAS_USERADDRESS")   // 過去に飛ばしたことアリ
                                 
                                 let requestCheck: String = snapshot.childSnapshot(forPath: userAddress!).value! as! String
                                 if requestCheck == "ok" {
-                                    print("request okkkkkkkkkkkkkkkkkkkkkkkkkkk")   // 位置情報共有許可済み
+                                    print("REQUEST_OK")   // 位置情報共有許可済み
                                     
                                     // performSegueでMapViewControllerへ戻り経路表示
                                     SVProgressHUD.showError(withStatus: "すでに承認済みです。経路を表示します。")
                                     self.performSegue(withIdentifier: "appointmentBack", sender: nil)
                                     
                                 } else {
-                                    print("request nooooooooooooooooooooooooooo")   // 位置情報共有許可ナシ
+                                    print("REQUEST_NO")   // 位置情報共有許可ナシ
                                     
                                     // HTTPリクエスト処理
                                     self.httpRequest()
                                 }
                             } else {
-                                print("dont have userAddressssssssssssssssssssssss")    // 初めてリクエストを飛ばす
+                                print("DONT_HAVE_USERADDRESS")    // 初めてリクエストを飛ばす
                                 
                                 // userAddress POST
                                 self.postRequest()
@@ -105,7 +105,7 @@ class AppointmentViewController: UIViewController {
                         })
                         
                     } else {
-                        print("dont have requesttttttttttttttttttttttttttttttt")    // AppointmentViewControllerを初利用
+                        print("DONT_HAVE_REQUEST")    // AppointmentViewControllerを初利用
                         
                         // userAddress POST
                         self.postRequest()
@@ -185,7 +185,7 @@ class AppointmentViewController: UIViewController {
         let postRef = Database.database().reference().child("users").child(self.toAddress).child("request")
         let setPostData = [
             "\(userAddress!)": "no"
-            ] as [String: Any]
+        ] as [String: Any]
         postRef.updateChildValues(setPostData)
     }
     /* postRequest end------------------------------------------------------------------------------------------------*/

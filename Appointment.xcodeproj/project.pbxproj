@@ -27,6 +27,7 @@
 		D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63531EB866850041967C /* ProfileSettingViewController.swift */; };
 		D88C63561EB866F80041967C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63551EB866F80041967C /* FavoriteViewController.swift */; };
 		D89ADCCF1ED2BB5600B29045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */; };
+		D8F8FDA61EDEA0490099AF53 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8FDA51EDEA0490099AF53 /* RequestTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		D88C63551EB866F80041967C /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		D89ADCAC1ED2A7B600B29045 /* Appointment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Appointment.entitlements; sourceTree = "<group>"; };
 		D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D8F8FDA51EDEA0490099AF53 /* RequestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestTableViewCell.swift; sourceTree = "<group>"; };
 		ECBA5123164E547483840353 /* Pods-Appointment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Appointment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Appointment/Pods-Appointment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,8 +119,9 @@
 				D8576D7A1EC161F900F784B5 /* SlideViewController.swift */,
 				D88C634F1EB845A40041967C /* RightMenuViewController.swift */,
 				D823263F1EAEEF2D008B7615 /* MapViewController.swift */,
-				D83EA93F1EDD0384003B004B /* RequestViewController.swift */,
 				D8335F581EAF3E710042D1DF /* AppointmentViewController.swift */,
+				D83EA93F1EDD0384003B004B /* RequestViewController.swift */,
+				D8F8FDA51EDEA0490099AF53 /* RequestTableViewCell.swift */,
 				D88C63551EB866F80041967C /* FavoriteViewController.swift */,
 				D852A3031ECBE3EA00E36A02 /* FavoriteTableViewCell.swift */,
 				D87150ED1EC5471300A3F05F /* PostData.swift */,
@@ -277,6 +280,7 @@
 				D852A3041ECBE3EA00E36A02 /* FavoriteTableViewCell.swift in Sources */,
 				D88C63521EB864410041967C /* HowToViewController.swift in Sources */,
 				D8576D7B1EC161F900F784B5 /* SlideViewController.swift in Sources */,
+				D8F8FDA61EDEA0490099AF53 /* RequestTableViewCell.swift in Sources */,
 				D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */,
 				D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */,
 				D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */,

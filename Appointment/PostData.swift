@@ -11,11 +11,11 @@ import Firebase
 
 class PostData: NSObject {
     var id: String?
-    var favorite = [[String:String]]()
+    var favorite = [[String : String]]()
     var latitude: Double?
     var longitude: Double?
     var token: String?
-    var request: String?
+    var request = [String : String]()
     
     init(snapshot: DataSnapshot, myId: String) {
         self.id = snapshot.key
@@ -31,7 +31,9 @@ class PostData: NSObject {
         
         self.token = valueDictionary["token"] as? String
         
-        self.request = valueDictionary["request"] as? String
+        if let request = valueDictionary["request"] as? [String : String] {
+            self.request = request
+        }
         
     }
 }
