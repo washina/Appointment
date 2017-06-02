@@ -15,7 +15,6 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var backMapButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var postArray: [PostData] = []
     var postData: PostData!
     var observing = false
     
@@ -55,7 +54,6 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
                     if let uid = Auth.auth().currentUser?.uid {
                         if(snapshot.key == address) {
                             self.postData = PostData(snapshot: snapshot, myId: uid)
-                            self.postArray.insert(self.postData, at: 0)
                             
                             // TableViewを再表示する
                             self.tableView.reloadData()
@@ -67,7 +65,6 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             if observing == true {
                 // テーブルをクリアする
-                postArray = []
                 tableView.reloadData()
                 // オブザーバーを削除する
                 Database.database().reference().removeAllObservers()
@@ -82,7 +79,8 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // セルの行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postData == nil ? 0 : postData.request.count
+
+        return postData == nil ? 0 : postData.request.allKeys(forValue: "no").count
     }
     
     // Auto Layoutを使ってセルの高さを動的に変更する
@@ -94,25 +92,28 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! RequestTableViewCell
-        cell.setPostData(request: postData.request)
+        let requestText = postData.request.allKeys(forValue: "no")
+
+        let changeText = requestText.reduce("") { $0 + String($1) }
+        cell.setPostData(request: "\(changeText)")
         
         return cell
+    }
+    
+    // Cell が選択された場合
+    func tableView(_ table: UITableView,didSelectRowAt indexPath: IndexPath) {
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension Dictionary where Value: Equatable {
+    func allKeys(forValue val: Value) -> [Key] {
+        return self.filter({ $1 == val }).map({ $0.0 })
     }
-    */
-
 }
