@@ -15,7 +15,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var addFavoriteButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
-    var postArray: [PostData] = []
     var postData: PostData!
     var observing = false
     
@@ -37,6 +36,10 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         // ボタンの背景色設定
         self.addFavoriteButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
         
+        // セルの高さ設定
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -57,7 +60,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
                     if let uid = Auth.auth().currentUser?.uid {
                         if(snapshot.key == address) {
                             self.postData = PostData(snapshot: snapshot, myId: uid)
-                            self.postArray.insert(self.postData, at: 0)
                             // TableViewを再表示する
                             self.tableView.reloadData()
                         }
@@ -68,7 +70,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             if observing == true {
                 // テーブルをクリアする
-                postArray = []
                 tableView.reloadData()
                 // オブザーバーを削除する
                 Database.database().reference().removeAllObservers()
@@ -81,11 +82,7 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postData == nil ? 0 : postData.favorite.count
     }
-    
-    // Auto Layoutを使ってセルの高さを動的に変更する
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
+
     
     // セルの内容を変更
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -68,33 +68,44 @@
                                     <action selector="backMapButton:" destination="Uxg-a1-Bn4" eventType="touchUpInside" id="uBH-ga-UZc"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-fm-BXr">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-fm-BXr">
                                 <rect key="frame" x="0.0" y="20" width="320" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="NFR-e1-e6d" customClass="RequestTableViewCell" customModule="Appointment" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="91" id="NFR-e1-e6d" customClass="RequestTableViewCell" customModule="Appointment" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NFR-e1-e6d" id="Oqh-Lu-Lkp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxo-NS-ZhT">
-                                                    <rect key="frame" x="18" y="8" width="284" height="27.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxo-NS-ZhT">
+                                                    <rect key="frame" x="8" y="13" width="304" height="29.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHD-Xz-GLY">
+                                                    <rect key="frame" x="8" y="47.5" width="304" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="zxo-NS-ZhT" secondAttribute="trailing" constant="10" id="5Po-za-1QY"/>
-                                                <constraint firstItem="zxo-NS-ZhT" firstAttribute="top" secondItem="Oqh-Lu-Lkp" secondAttribute="topMargin" id="K6T-7P-3WZ"/>
-                                                <constraint firstItem="zxo-NS-ZhT" firstAttribute="leading" secondItem="Oqh-Lu-Lkp" secondAttribute="leadingMargin" constant="10" id="aR4-KA-jmt"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="zxo-NS-ZhT" secondAttribute="bottom" id="ab3-qD-Jfh"/>
+                                                <constraint firstItem="YHD-Xz-GLY" firstAttribute="top" secondItem="zxo-NS-ZhT" secondAttribute="bottom" constant="5" id="Gks-DZ-5wT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zxo-NS-ZhT" secondAttribute="trailing" id="QFv-BL-8MA"/>
+                                                <constraint firstItem="zxo-NS-ZhT" firstAttribute="height" secondItem="YHD-Xz-GLY" secondAttribute="height" id="U0a-ja-j8f"/>
+                                                <constraint firstItem="zxo-NS-ZhT" firstAttribute="top" secondItem="Oqh-Lu-Lkp" secondAttribute="topMargin" constant="5" id="beY-gT-mjQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YHD-Xz-GLY" secondAttribute="bottom" constant="5" id="eMt-j1-h6u"/>
+                                                <constraint firstItem="YHD-Xz-GLY" firstAttribute="leading" secondItem="Oqh-Lu-Lkp" secondAttribute="leadingMargin" id="nTN-Fq-B0q"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YHD-Xz-GLY" secondAttribute="trailing" id="q7h-eT-H7L"/>
+                                                <constraint firstItem="zxo-NS-ZhT" firstAttribute="leading" secondItem="Oqh-Lu-Lkp" secondAttribute="leadingMargin" id="yPj-kz-MFQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="zxo-NS-ZhT" id="Oyb-Ws-Tvr"/>
+                                            <outlet property="requestLabel" destination="YHD-Xz-GLY" id="l6d-YK-eHp"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -119,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNo-ET-Knr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="789" y="2518"/>
+            <point key="canvasLocation" x="787.5" y="2517.2535211267605"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="59z-hu-vOD">
@@ -581,6 +592,6 @@
         <image name="pintopin" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0fF-rv-MdK"/>
+        <segue reference="8Og-Bt-iQ5"/>
     </inferredMetricsTieBreakers>
 </document>

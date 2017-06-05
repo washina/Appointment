@@ -34,6 +34,10 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
         // ボタンの背景色設定
         self.backMapButton.backgroundColor = UIColorFromRGB(rgbValue: 0x40e0de)
         
+        // セルの高さ設定
+        tableView.estimatedRowHeight = 50
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -80,29 +84,60 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
     // セルの行数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return postData == nil ? 0 : postData.request.allKeys(forValue: "no").count
-    }
-    
-    // Auto Layoutを使ってセルの高さを動的に変更する
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return postData == nil ? 0 : postData.request.count
     }
     
     // セルの内容を変更
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // セルを取得してデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! RequestTableViewCell
-        let requestText = postData.request.allKeys(forValue: "no")
-
-        let changeText = requestText.reduce("") { $0 + String($1) }
-        cell.setPostData(request: "\(changeText)")
+        cell.setPostData(request: postData.request[indexPath.row])
         
         return cell
     }
     
     // Cell が選択された場合
     func tableView(_ table: UITableView,didSelectRowAt indexPath: IndexPath) {
-
+        
+        // message作成
+        let userAddress = postData.request[indexPath.row]["userAddress"]!
+        let replacingUserAddress = userAddress.replacingOccurrences(of: ",", with: ".")
+        let alertMessage = "ユーザー「\(replacingUserAddress)」に対する、\n位置情報共有の許可を変更しますか？"
+        
+        // alert作成
+        let alertController = UIAlertController(title: "変更確認", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        // OKボタン選択時の処理
+        let okButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
+            var myAddress = Auth.auth().currentUser?.email
+            myAddress = myAddress?.replacingOccurrences(of: ".", with: ",")
+            let ref = Database.database().reference().child("users").child(myAddress!).child("request").child("\(indexPath.row)")
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                let requestCheck: String = snapshot.childSnapshot(forPath: "requestCheck").value! as! String
+                if requestCheck == "ok" {   // 許可 -> 不許可
+                    let setPostData = ([
+                        "requestCheck": "no"
+                    ])
+                    ref.updateChildValues(setPostData)
+                    self.performSegue(withIdentifier: "requestBack", sender: nil)
+                } else {    // 不許可 -> 許可
+                    let setPostData = ([
+                        "requestCheck": "ok"
+                    ])
+                    ref.updateChildValues(setPostData)
+                    self.performSegue(withIdentifier: "requestBack", sender: nil)
+                }
+            })
+        }
+        
+        // キャンセルボタン選択時の処理
+        let cancelButton = UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.cancel, handler: nil)
+        
+        // 各ボタンの追加
+        alertController.addAction(okButton)
+        alertController.addAction(cancelButton)
+        
+        present(alertController,animated: true,completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -110,10 +145,4 @@ class RequestViewController: UIViewController, UITableViewDataSource, UITableVie
         // Dispose of any resources that can be recreated.
     }
 
-}
-
-extension Dictionary where Value: Equatable {
-    func allKeys(forValue val: Value) -> [Key] {
-        return self.filter({ $1 == val }).map({ $0.0 })
-    }
 }

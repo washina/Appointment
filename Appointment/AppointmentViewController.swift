@@ -20,6 +20,10 @@ class AppointmentViewController: UIViewController {
     
     var toAddress: String = ""
     
+    // request履歴を確認するための変数
+    var haveAddressCheck = false
+    var successCheck = false
+    
     // locationの値を取得
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -59,66 +63,58 @@ class AppointmentViewController: UIViewController {
     }
     
     @IBAction func searchButton(_ sender: Any) {
-        toAddress = toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
+        self.toAddress = self.toMailAddressTextField.text!.replacingOccurrences(of: ".", with: ",")
         Database.database().reference().child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(self.toAddress){
                 
-                /* request確認処理 --------------------------------------------------------------------------------*/
                 let ref = Database.database().reference().child("users").child(self.toAddress)
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     // Database上にrequestがあるかどうか
                     if snapshot.hasChild("request") {
-                        print("HAS_REQUEST")
+                        print("DEBUG_PRINT: HAS_REQUEST")
                         
                         // Database上のrequestに自分のアドレスがあるかどうか（過去にリクエストを飛ばしたことがあるかどうか）
                         var userAddress = Auth.auth().currentUser?.email
                         userAddress = userAddress?.replacingOccurrences(of: ".", with: ",")
                         ref.child("request").observeSingleEvent(of: .value, with: { (snapshot) in
-                            
-                            if snapshot.hasChild(userAddress!) {
-                                print("HAS_USERADDRESS")   // 過去に飛ばしたことアリ
-                                
-                                let requestCheck: String = snapshot.childSnapshot(forPath: userAddress!).value! as! String
-                                if requestCheck == "ok" {
-                                    print("REQUEST_OK")   // 位置情報共有許可済み
+                            for count in 0 ..< snapshot.childrenCount {
+                                ref.child("request").child("\(count)").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    let addressCheck: String = snapshot.childSnapshot(forPath: "userAddress").value! as! String
                                     
-                                    // performSegueでMapViewControllerへ戻り経路表示
-                                    SVProgressHUD.showError(withStatus: "すでに承認済みです。経路を表示します。")
-                                    self.performSegue(withIdentifier: "appointmentBack", sender: nil)
-                                    
-                                } else {
-                                    print("REQUEST_NO")   // 位置情報共有許可ナシ
-                                    
-                                    // HTTPリクエスト処理
-                                    self.httpRequest()
+                                    if addressCheck == "\(userAddress!)" {
+                                        print("DEBUG_PRINT: HAS_USERADDRESS")
+                                        // requestしたことがある -> true
+                                        self.haveAddressCheck = true
+                                        
+                                        let requestCheck: String = snapshot.childSnapshot(forPath: "requestCheck").value! as! String
+                                        if requestCheck == "ok" {
+                                            print("DEBUG_PRINT: REQUEST_OK")
+                                            // 承認済み -> true
+                                            self.successCheck = true
+                                            
+                                            SVProgressHUD.showSuccess(withStatus: "すでに承認済みです。経路を表示します。")
+                                            self.prepareToData()
+                                        }
+                                    }
+                                })
+                                if count == snapshot.childrenCount {
+                                    // 全てのデータを見終わったら処理を実行
+                                    if self.successCheck == false {
+                                        // HTTPリクエスト処理
+                                        self.httpRequest()
+                                    }
                                 }
-                            } else {
-                                print("DONT_HAVE_USERADDRESS")    // 初めてリクエストを飛ばす
-                                
-                                // userAddress POST
-                                self.postRequest()
-                                
-                                // HTTPリクエスト処理
-                                self.httpRequest()
                             }
                         })
                         
                     } else {
-                        print("DONT_HAVE_REQUEST")    // AppointmentViewControllerを初利用
-                        
-                        // userAddress POST
-                        self.postRequest()
+                        print("DEBUG_PRINT: DONT_HAVE_REQUEST")
                         
                         // HTTPリクエスト処理
                         self.httpRequest()
                     }
                 })
-                /* request確認処理 end-----------------------------------------------------------------------------*/
-                
-                // appointmentBackで画面遷移
-                SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認、リクエストを送信しました。")
-                self.performSegue(withIdentifier: "appointmentBack", sender: nil)
             } else {
                 SVProgressHUD.showError(withStatus: "メールアドレスが間違っています。")
                 return
@@ -130,6 +126,11 @@ class AppointmentViewController: UIViewController {
     func httpRequest() {
         let ref = Database.database().reference().child("users").child(self.toAddress)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // request履歴がなければpostRequestを実行
+            if self.haveAddressCheck == false {
+                self.postRequest()
+            }
             
             // 各情報をセット
             let uid = Auth.auth().currentUser?.uid
@@ -174,6 +175,10 @@ class AppointmentViewController: UIViewController {
                 print(error)
             }
         })
+        
+        // appointmentBackで画面遷移
+        SVProgressHUD.showSuccess(withStatus: "メールアドレスを確認、リクエストを送信しました。")
+        self.prepareToData()
     }
     /* httpRequest（通知処理） end--------------------------------------------------------------------------------------*/
 
@@ -183,21 +188,38 @@ class AppointmentViewController: UIViewController {
         var userAddress = Auth.auth().currentUser?.email
         userAddress = userAddress?.replacingOccurrences(of: ".", with: ",")
         let postRef = Database.database().reference().child("users").child(self.toAddress).child("request")
-        let setPostData = [
-            "\(userAddress!)": "no"
-        ] as [String: Any]
-        postRef.updateChildValues(setPostData)
+        
+        let setPostData = ([
+            "userAddress": "\(userAddress!)",
+            "requestCheck": "no"
+        ])
+        postRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            postRef.child("\(snapshot.childrenCount)").updateChildValues(setPostData)
+        })
     }
     /* postRequest end------------------------------------------------------------------------------------------------*/
 
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        // 入力されたアドレスをdelegateLocationに渡す
-        appDelegate.delegateLocation = (
-            delegateAddress: "\(toAddress)",
-            delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
-            delegateLongitude: appDelegate.delegateLocation.delegateLongitude
-        )
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+//        // 入力されたアドレスをdelegateLocationに渡す
+//        if self.successCheck == true {
+//            appDelegate.delegateLocation = (
+//                delegateAddress: "\(toAddress)",
+//                delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
+//                delegateLongitude: appDelegate.delegateLocation.delegateLongitude
+//            )
+//        }
+//    }
+    
+    func prepareToData() {
+        if self.successCheck == true {
+            appDelegate.delegateLocation = (
+                delegateAddress: "\(toAddress)",
+                delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
+                delegateLongitude: appDelegate.delegateLocation.delegateLongitude
+            )
+        }
+        self.performSegue(withIdentifier: "appointmentBack", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
