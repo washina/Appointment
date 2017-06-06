@@ -67,7 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // 通知からアプリを起動した際の処理
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,withCompletionHandler completionHandler: @escaping () -> Void) {
-        NSLog("opennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
         completionHandler()
         
         // RequestViewController（リクエスト確認画面）へ

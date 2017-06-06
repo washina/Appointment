@@ -78,16 +78,19 @@ class AppointmentViewController: UIViewController {
                         var userAddress = Auth.auth().currentUser?.email
                         userAddress = userAddress?.replacingOccurrences(of: ".", with: ",")
                         ref.child("request").observeSingleEvent(of: .value, with: { (snapshot) in
-                            for count in 0 ..< snapshot.childrenCount {
+                            let maxCount = snapshot.childrenCount
+                            for count in 0 ..< maxCount {
                                 ref.child("request").child("\(count)").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    let addressCheck: String = snapshot.childSnapshot(forPath: "userAddress").value! as! String
+                                    
+                                    // 判別に使用する文字列
+                                    let addressCheck = snapshot.childSnapshot(forPath: "userAddress").value! as! String
+                                    let requestCheck = snapshot.childSnapshot(forPath: "requestCheck").value! as! String
                                     
                                     if addressCheck == "\(userAddress!)" {
                                         print("DEBUG_PRINT: HAS_USERADDRESS")
                                         // requestしたことがある -> true
                                         self.haveAddressCheck = true
                                         
-                                        let requestCheck: String = snapshot.childSnapshot(forPath: "requestCheck").value! as! String
                                         if requestCheck == "ok" {
                                             print("DEBUG_PRINT: REQUEST_OK")
                                             // 承認済み -> true
@@ -98,7 +101,7 @@ class AppointmentViewController: UIViewController {
                                         }
                                     }
                                 })
-                                if count == snapshot.childrenCount {
+                                if count == (maxCount - 1) {
                                     // 全てのデータを見終わったら処理を実行
                                     if self.successCheck == false {
                                         // HTTPリクエスト処理
@@ -198,19 +201,8 @@ class AppointmentViewController: UIViewController {
         })
     }
     /* postRequest end------------------------------------------------------------------------------------------------*/
-
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-//        // 入力されたアドレスをdelegateLocationに渡す
-//        if self.successCheck == true {
-//            appDelegate.delegateLocation = (
-//                delegateAddress: "\(toAddress)",
-//                delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
-//                delegateLongitude: appDelegate.delegateLocation.delegateLongitude
-//            )
-//        }
-//    }
-    
+    /* prepareToData -------------------------------------------------------------------------------------------------*/
     func prepareToData() {
         if self.successCheck == true {
             appDelegate.delegateLocation = (
@@ -221,6 +213,7 @@ class AppointmentViewController: UIViewController {
         }
         self.performSegue(withIdentifier: "appointmentBack", sender: nil)
     }
+    /* prepareToData end----------------------------------------------------------------------------------------------*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
