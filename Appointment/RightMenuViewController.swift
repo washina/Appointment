@@ -12,7 +12,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
-    let texts = ["使い方", "アカウント", "リクエスト"]
+    let texts = ["使い方", "リクエスト確認"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +40,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             let howToVC = self.storyboard?.instantiateViewController(withIdentifier: "HowTo")
             self.present(howToVC!, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)
-        } else if indexPath.row == 1 {      // 「アカウント」がタップされた時
-            let plofileSettingVC = self.storyboard?.instantiateViewController(withIdentifier: "Plofile")
-            self.present(plofileSettingVC!, animated: true, completion: nil)
-            tableView.deselectRow(at: indexPath, animated: true)
-        } else if indexPath.row == 2 {      // 「リクエスト」がタップされた時
+        }else if indexPath.row == 1 {      // 「リクエスト」がタップされた時
             let requestVC = self.storyboard?.instantiateViewController(withIdentifier: "Request")
             self.present(requestVC!, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: true)

@@ -65,9 +65,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // MapViewのDelegateを設定
         mapView.delegate = self
         
-        // 現在地をマップ中心部に、現在地にカーソルを表示
-        mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
+        // 現在地にカーソルを表示
+        mapView.userTrackingMode = .follow
         
         /* SlideMenuControllerSwift設定 ----------------------------------------------------------------------*/
         navigationController?.navigationBar.isTranslucent = false                                   // バーを半透明にするか
@@ -203,11 +202,6 @@ extension MapViewController: CLLocationManagerDelegate {
     /* 起動時、現在位置取得、マップ表示処理 ---------------------------------------------------------------------------------*/
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         for location in locations {
-            // 今までのピンを削除
-            mapView.removeAnnotations(mapView.annotations)
-            
-            // time
-            let time = NSDate.timeIntervalSinceReferenceDate
             
             // Databaseの保存場所を決定する
             var postId = Auth.auth().currentUser?.email
@@ -217,7 +211,6 @@ extension MapViewController: CLLocationManagerDelegate {
             // 各データをupdateする
             let postRef = Database.database().reference().child("users").child(postId!)
             let postData = [
-                "time": String(time),
                 "latitude": location.coordinate.latitude,
                 "longitude": location.coordinate.longitude
             ] as [String : Any]

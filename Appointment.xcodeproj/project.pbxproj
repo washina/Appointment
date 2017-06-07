@@ -24,7 +24,6 @@
 		D8730EA11EC2CDE100D11386 /* AddFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8730EA01EC2CDE100D11386 /* AddFavoriteViewController.swift */; };
 		D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C634F1EB845A40041967C /* RightMenuViewController.swift */; };
 		D88C63521EB864410041967C /* HowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63511EB864400041967C /* HowToViewController.swift */; };
-		D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63531EB866850041967C /* ProfileSettingViewController.swift */; };
 		D88C63561EB866F80041967C /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C63551EB866F80041967C /* FavoriteViewController.swift */; };
 		D89ADCCF1ED2BB5600B29045 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */; };
 		D8F8FDA61EDEA0490099AF53 /* RequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F8FDA51EDEA0490099AF53 /* RequestTableViewCell.swift */; };
@@ -51,7 +50,6 @@
 		D8730EA01EC2CDE100D11386 /* AddFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavoriteViewController.swift; sourceTree = "<group>"; };
 		D88C634F1EB845A40041967C /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		D88C63511EB864400041967C /* HowToViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToViewController.swift; sourceTree = "<group>"; };
-		D88C63531EB866850041967C /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		D88C63551EB866F80041967C /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		D89ADCAC1ED2A7B600B29045 /* Appointment.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Appointment.entitlements; sourceTree = "<group>"; };
 		D89ADCCE1ED2BB5600B29045 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 				D87150ED1EC5471300A3F05F /* PostData.swift */,
 				D8730EA01EC2CDE100D11386 /* AddFavoriteViewController.swift */,
 				D88C63511EB864400041967C /* HowToViewController.swift */,
-				D88C63531EB866850041967C /* ProfileSettingViewController.swift */,
 				D82326321EAEEEB5008B7615 /* Assets.xcassets */,
 				D82326341EAEEEB5008B7615 /* LaunchScreen.storyboard */,
 				D82326371EAEEEB5008B7615 /* Info.plist */,
@@ -283,7 +280,6 @@
 				D8F8FDA61EDEA0490099AF53 /* RequestTableViewCell.swift in Sources */,
 				D88C63501EB845A40041967C /* RightMenuViewController.swift in Sources */,
 				D82326401EAEEF2D008B7615 /* MapViewController.swift in Sources */,
-				D88C63541EB866850041967C /* ProfileSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
