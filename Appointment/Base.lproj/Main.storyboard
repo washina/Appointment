@@ -393,7 +393,6 @@
                                 <state key="normal" title="お気に入り追加"/>
                                 <connections>
                                     <action selector="addRequest:" destination="mbl-Pk-s1k" eventType="touchUpInside" id="IPb-h5-X1H"/>
-                                    <segue destination="gOa-jY-WO0" kind="unwind" unwindAction="unwindWithSegue:" id="RgS-j9-tm0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="お気に入り追加情報を入力して下さい" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rv7-vY-wf8">
@@ -426,10 +425,10 @@
                         <outlet property="addButton" destination="1l5-zA-JgQ" id="dRw-nL-929"/>
                         <outlet property="mailAddressTextField" destination="Plv-7b-5KD" id="SL9-rN-TJF"/>
                         <outlet property="userNameTextField" destination="hZI-J2-QQj" id="YEW-C9-Oqf"/>
+                        <segue destination="lVP-am-AT9" kind="presentation" identifier="addFavoriteBack" id="vYG-AE-AX1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kow-Wp-Alw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="gOa-jY-WO0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2852" y="1738"/>
         </scene>
@@ -456,7 +455,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRA-gR-7gl">
                                 <rect key="frame" x="36" y="148" width="248" height="30"/>
-                                <state key="normal" title="検索"/>
+                                <state key="normal" title="経路検索 / リクエスト送信"/>
                                 <connections>
                                     <action selector="searchButton:" destination="4mQ-ep-xkF" eventType="touchUpInside" id="Z1N-sb-HvY"/>
                                 </connections>
@@ -581,6 +580,6 @@
         <image name="pintopin" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zxu-hr-sRa"/>
+        <segue reference="vYG-AE-AX1"/>
     </inferredMetricsTieBreakers>
 </document>

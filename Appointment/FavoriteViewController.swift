@@ -19,8 +19,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
     var postData: PostData!
     var observing = false
     
-//    var selectedData: String = ""
-    
     // request履歴を確認するための変数
     var toAddress: String = ""
     var haveAddressCheck = false
@@ -51,6 +49,9 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // コンテンツ内容よりも多くのCellのセパレータを表示しないための処理
+        tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +102,30 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         
         return cell
     }
+    
+//    // cellのスライド時のボタン処理
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "削除") { (action, index) -> Void in
+//            tableView.isEditing = false
+//            print("delete")
+//            
+//            // 削除処理
+//            let ref = Database.database().reference()
+//            var userAddress = Auth.auth().currentUser?.email
+//            userAddress = userAddress?.replacingOccurrences(of: ".", with: ",")
+//            let deleteRef = ref.child("users").child("\(userAddress!)").child("favorite").child("\(indexPath.row)")
+//            deleteRef.deleteWithCompletion{ (error) -> Void in
+//                if (error != nil) {
+//                    print(error)
+//                } else {
+//                    // File deleted successfully
+//                }
+//            }
+//        }
+//        deleteButton.backgroundColor = UIColor.red
+//        
+//        return [deleteButton]
+//    }
     
     // Cell が選択された場合
     func tableView(_ table: UITableView,didSelectRowAt indexPath: IndexPath) {
@@ -157,10 +182,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.httpRequest()
             }
         })
-//        selectedData = postData.favorite[indexPath.row]["userMailAddress"]!
-//        selectedData = selectedData.replacingOccurrences(of: ".", with: ",")
-//        // favoriteBackで画面遷移
-//        performSegue(withIdentifier: "favoriteBack", sender: nil)
     }
     
     /* httpRequest（通知処理） -----------------------------------------------------------------------------------------*/
@@ -251,18 +272,6 @@ class FavoriteViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "favoriteBack", sender: nil)
     }
     /* prepareToData end----------------------------------------------------------------------------------------------*/
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "favoriteBack") {
-//            // タップされたセルのお気に入りデータをdelegateLocationに渡す
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.delegateLocation = (
-//                delegateAddress: "\(selectedData)",
-//                delegateLatitude: appDelegate.delegateLocation.delegateLatitude,
-//                delegateLongitude: appDelegate.delegateLocation.delegateLongitude
-//            )
-//        }
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
